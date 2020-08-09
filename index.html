@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>WIP | APOD | NASA</title>
+  <meta name="description" content="Nasa WIP" />
+  <meta name="author" content="Nasa Apod Wip" />
+  <script src="https://kit.fontawesome.com/306368f56a.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="apod-bg">
+      <div class="apod-datepicker">
+          <div class="apod-x">X</div>
+        <form class="apod-date-form">
+          <select name="apod-days" class="apod-day-select">
+           
+          </select>
+          <select name="apod-months" class="apod-month">
+          </select>
+          <select name="apod-years" class="apod-year-select">
+            <option value='2015' class='apod-year'>2015</option>
+            <option value='2016' class='apod-year'>2016</option>
+            <option value='2017' class='apod-year'>2017</option>
+            <option value='2018' class='apod-year'>2018</option>
+            <option value='2019' class='apod-year'>2019</option>
+            <option value='2020' class='apod-year'>2020</option>
+          </select>
+          <input type="submit" class="apod-submit-date">
+        </form>
+
+      </div>
+    </div>
+
+    <script id="nasa-app-fav-template" type="text/x-handlebars-template">
+        <div id="nasa-template-whole">
+          <div class="nasa-fav-logo">
+            <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo-fav" />
+            <div class="apod-links apod-links-fav">
+              <div class="apod-link-1">
+                today
+              </div>
+              <div class="apod-link-2">
+                pick a date
+              </div>
+              <div class="apod-link-3">
+                random
+              </div>
+              <div class="apod-link-4">
+                favourites
+              </div>
+            </div>
+          </div>
+
+          <div class="nasa-fav-grid">
+            {{#each this}}
+              <div class="nasa-fav-grid-item">
+                <img
+                  src="{{url}}"
+                  alt="Nasa Favourited Image"
+                  class="fav-item-url"
+                />
+                <div class="fav-item-title">
+                  {{title}}
+                </div>
+                <div class="fav-item-date">
+                  {{prettyDate date}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </script>
+
+    <script id="nasa-app-template" type="text/x-handlebars-template">
+        <div id="nasa-template-whole">
+          <div class="apod-left-side">
+            <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo" />
+            <div class="apod-content">
+              <h1 id="apod-explanation-title">
+                {{apodTitle}}
+              </h1>
+              <div class="apod-tags">
+                {{#if apodCopyright}}
+                <div class="apod-pills">{{apodCopyright}}</div>
+                {{/if}}
+              {{#if apodVersion}}
+              <div class="apod-pills">{{apodVersion}}</div>
+              {{/if}}
+              <div class="apod-pills">{{apodMediaType}}</div>
+            </div>
+            
+              <div id="apod-desc-opener">
+                {{apodDescOpener}}
+              
+              </div>
+              <div id="apod-desc-remaining">
+                {{apodDescRemaining}}
+              </div>
+            </div>
+           
+              <div class="apod-footer">
+                <a href="https://github.com/joshua-tree-ctrl" target="_blank" class="apod-ext-links">  <i class="fab fa-github"></i></a>
+                <a href="https://codepen.io/flux_capacitor_" target="_blank" class="apod-ext-links">   <i class="fab fa-codepen"></i></a>
+             
+            </div>
+         
+          </div>
+
+          <div class="apod-right-side">
+            <div class="apod-links">
+              <div class="apod-link-1">
+                <i class="fas fa-space-shuttle"></i>
+              </div>
+              <div class="apod-link-2">
+                <i class="far fa-calendar-alt"></i>
+              </div>
+              <div class="apod-link-3">
+                <i class="fas fa-random"></i>
+              </div>
+              <div class="apod-link-4">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <div class="apod-title-date-img-content">
+              {{#if apodVid}}
+                <iframe
+                  src="{{apodVid}}amp;autoplay=1&mute=1"
+                >
+                </iframe>
+                {{else}}
+              <img id="apod-img" src="{{apodURL}}" />
+              {{/if}}
+              <label class="icon__heart">
+                <input type="checkbox" />
+                <i class="fas fa-heart"></i>
+              </label>
+              <label class="icon__search">
+                <i class="fas fa-search-plus"></i>
+              </label>
+              <h1 id="apod-title">
+                {{apodTitle}}
+              </h1>
+              <div id="apod-date">
+                {{prettyDate apodDate}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </script>
+  </div>
+  
+  <div class="modal">
+    <div class="apod-img-expanded"></div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
