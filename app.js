@@ -1,5 +1,10 @@
 /* GLOBAL VARIABLES */
 var publicFavourites = [];
+var dateRef = new Date();
+var dateYear = dateRef.getFullYear();
+let dateDay = dateRef.getDate();
+let dateMonth = dateRef.getMonth() + 1;
+console.log(dateRef,dateYear,dateMonth,dateDay);
 const yearArray = [2015, 2016, 2017, 2018, 2019, 2020];
 const monthsOf = [
   "January",
@@ -46,7 +51,9 @@ Handlebars.registerHelper("prettyDate", function (dateInput) {
   let monthFull = monthsOf[month];
   let days = newDate.getDay();
   let daysWeek = daysOf[days];
+
   return `${daysWeek} ${day} ${monthFull}, ${year}`;
+  
 });
 
 // TEXT REGEX TRANSFORM -> First paragraph separated
@@ -62,14 +69,13 @@ function transformString(stringy) {
 
 //RANDOMIZE DATE//
 async function randomizeDate() {
-  let dateRef = new Date();
+ 
   let randomMonth = Math.floor(Math.random() * 11) + 1;
   let randomYearSelector = Math.floor(Math.random() * yearArray.length);
   let randomYear = yearArray[randomYearSelector];
   let daysInMonth = new Date(randomYear, randomMonth, 0).getDate();
   let randomDay = Math.floor(Math.random() * daysInMonth) + 1;
   let newRandomDate = new Date(randomYear, randomMonth, randomDay);;
-
   //IF FUTURE DATE
   if (newRandomDate > dateRef) {
     console.log("future date, randomizing again");
@@ -125,24 +131,35 @@ function watchDates() {
 
   //For days updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
   $(".apod-month, .apod-year-select").change(function (e) {
-    let dayInput = $(".apod-day-select").val();
-
-    $(".apod-day-select").children().remove();
-
+    let dayInput = $(".apod-day-select").val(); //grab inputted day onChange
+    $(".apod-day-select").children().remove(); //remove days to re-render days
     e.preventDefault();
 
-    let yearInput = $(".apod-year-select").val();
-    let monthInput = $(".apod-month").val();
-    let days = new Date(yearInput, monthInput, 0).getDate();
-   
-    let i = 1;
-    while (i <= days) {
-      $(".apod-day-select").append(
-        `<option value='${i}' class='apod-day'>${i}</option>`
-      );
-      i++;
+    let yearInput = $(".apod-year-select").val(); // grab inputted year
+    let monthInput = $(".apod-month").val(); // grab inputted month
+    let days = new Date(yearInput, monthInput, 0).getDate(); // calculate days in this month and year, ie feb 2015 28, feb 2016 29. 
+
+
+    //not to append months/days that don't exist yet.
+    let i = 1; //counter ref
+    let newestYear = yearArray.length - 1; //grab most current year in the array
+    if(yearArray[newestYear] == yearInput && monthInput == dateMonth) { // if year is newest(2020) and userchosen year is 2020, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
+      while(i <= dateDay) {
+        $(".apod-day-select").append(
+          `<option value='${i}' class='apod-day'>${i}</option>`
+        );
+        i++;
+      }
+    } else {
+      while (i <= days) {
+        $(".apod-day-select").append(
+          `<option value='${i}' class='apod-day'>${i}</option>`
+        );
+        i++;
+      }
     }
 
+    //retain last picked day (unless doesnt exist then previous code removes it);
     $(".apod-day-select").val(dayInput);
   });
 }
