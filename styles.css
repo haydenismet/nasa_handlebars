@@ -369,42 +369,34 @@ img.fav-item-url {
   opacity:1;
 }
 
+.apod-datepicker {
+  position:relative;
+}
+
 .apod-date-form {
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.6rem;
+ 
 }
 
-.apod-day-select {
-  font-family: "Nunito Sans", sans-serif;
-  font-size: 2rem;
+.apod-date-form select {
+  margin:0px 10px;
+  text-align-last: center;
+  padding: 1rem 2rem;
+  font-size:3rem;
   font-weight:600;
-}
-
-.apod-year-select {
   font-family: "Nunito Sans", sans-serif;
-  font-size: 2rem;
-  font-weight:600;
+  border-radius:5px;
 }
 
-.apod-month {
-  font-family: "Nunito Sans", sans-serif;
-  font-size: 2rem;
-  font-weight:600;
-}
-
-.apod-datepicker {
-  display: flex;
-    flex-direction: column;
-    position:relative;
-}
 
 .apod-submit-date {
   font-family: "Nunito Sans", sans-serif;
-  font-size: 2.5rem;
-  display: block;
-  width: 100%;
-  margin-top: 10px;
-  font-weight:900;
+  font-size: 3rem;
+  font-weight:600;
+  padding: 1rem 2rem;
+  border-radius:5px;
+  margin-left:10px;
 }
 
 .apod-x {
