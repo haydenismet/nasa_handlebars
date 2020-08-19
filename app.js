@@ -246,6 +246,8 @@ function fetchCall(url) {
   );
   //pick a date functionality -> remaining is to only allow for this year up to this month ie 2020 up to August 9th, no further. 
   //mobile responsive
+  //video zoom button disable? or open to new link
+  //condense the video to img template in app.js so isnt two complete template renders?
   //compare photos with photos within the publicFavourites array, if its been liked you can't add it again. add remove functionality later
   //https://api.nasa.gov/planetary/apod?start_date=2020-06-12&end_date=2020-06-15&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
   //https://api.nasa.gov/planetary/apod?date=2020-06-12&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
