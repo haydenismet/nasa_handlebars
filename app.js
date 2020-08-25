@@ -1,11 +1,13 @@
 /* GLOBAL VARIABLES */
 var publicFavourites = [];
-var dateRef = new Date();
-var dateYear = dateRef.getFullYear();
-let dateDay = dateRef.getDate();
-let dateMonth = dateRef.getMonth() + 1;
+const dateRef = new Date();
+const dateYear = dateRef.getFullYear();
+const dateDay = dateRef.getDate();
+const dateMonth = dateRef.getMonth() + 1;
 console.log(dateRef,dateYear,dateMonth,dateDay);
 const yearArray = [2015, 2016, 2017, 2018, 2019, 2020];
+const newestYear = yearArray.length - 1; //grab most current year in the array
+console.log(yearArray[newestYear]);
 const monthsOf = [
   "January",
   "February",
@@ -98,13 +100,14 @@ $(".container").on("click", ".apod-link-2", function (e) {
 //SHOW MONTHS ARRAY
 function loopMonths() {
   monthsOf.forEach((month, index) => {
-    //console.log(month, index + 1);
     $(".apod-month").append(
       `<option value='${index + 1}' class='apod-year'>${month}</option>`
-    );
-  });
-}
+    )
+  });   
+};
 loopMonths();
+
+
 
 //SCRAPE USER INPUT DATES
 async function scrapeDatesSubmit() {
@@ -131,6 +134,7 @@ function watchDates() {
 
   //For days updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
   $(".apod-month, .apod-year-select").change(function (e) {
+  
     let dayInput = $(".apod-day-select").val(); //grab inputted day onChange
     $(".apod-day-select").children().remove(); //remove days to re-render days
     e.preventDefault();
@@ -140,10 +144,24 @@ function watchDates() {
     let days = new Date(yearInput, monthInput, 0).getDate(); // calculate days in this month and year, ie feb 2015 28, feb 2016 29. 
 
 
-    //not to append months/days that don't exist yet.
+    
+
+    if(yearArray[newestYear] == yearInput) {
+      $(".apod-month").children().remove(); //remove days to re-render days
+      let d = 0;
+      while (monthsOf[d] !== monthsOf[dateMonth]) {
+        console.log(monthsOf[d]);
+        d++;
+        $(".apod-month").append(
+          `<option value='${d}' class='apod-year'>${monthsOf[d -1]}</option>`
+        )
+      }
+
+    };
+
     let i = 1; //counter ref
-    let newestYear = yearArray.length - 1; //grab most current year in the array
-    if(yearArray[newestYear] == yearInput && monthInput == dateMonth) { // if year is newest(2020) and userchosen year is 2020, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
+    if(yearArray[newestYear] == yearInput && monthInput == dateMonth) {  // if year is newest(2020) and userchosen year is 2020, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
+console.log('2020 and aug');
       while(i <= dateDay) {
         $(".apod-day-select").append(
           `<option value='${i}' class='apod-day'>${i}</option>`
@@ -246,7 +264,6 @@ function fetchCall(url) {
   );
   //pick a date functionality -> remaining is to only allow for this year up to this month ie 2020 up to August 9th, no further. 
   //mobile responsive
-  //video zoom button disable? or open to new link
   //condense the video to img template in app.js so isnt two complete template renders?
   //compare photos with photos within the publicFavourites array, if its been liked you can't add it again. add remove functionality later
   //https://api.nasa.gov/planetary/apod?start_date=2020-06-12&end_date=2020-06-15&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD

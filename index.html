@@ -131,12 +131,13 @@
             <div class="apod-title-date-img-content">
               {{#if apodVid}}
                 <iframe
-                  src="{{apodVid}}?autoplay=1&mute=1"
+                  src="{{apodVid}}&autoplay=1&mute=1"
                 >
                 </iframe>
                 {{else}}
               <img id="apod-img" src="{{apodURL}}" />
               {{/if}}
+              {{#if apodURL}}
               <label class="icon__heart">
                 <input type="checkbox" />
                 <i class="fas fa-heart"></i>
@@ -144,6 +145,7 @@
               <label class="icon__search">
                 <i class="fas fa-search-plus"></i>
               </label>
+              {{/if}}
               <h1 id="apod-title">
                 {{apodTitle}}
               </h1>
