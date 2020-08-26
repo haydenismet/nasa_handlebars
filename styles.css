@@ -376,6 +376,7 @@ img.fav-item-url {
 .apod-date-form {
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.6rem;
+  position:relative;
  
 }
 
@@ -420,9 +421,22 @@ select option {
 }
 
 .dates-container-border {
-  border:0.5rem solid white;
+  border:0.2rem solid white;
   display:inline-block;
   padding:1rem;
+  position:relative;
+}
+
+.dates-container-border:after {
+  content:" ";
+  z-index:1;
+  top:2.5rem;
+  right:-2.6rem;
+  width:2.5rem;
+  height:0.2rem;
+  background-color:white;
+  display:inline-block;
+  position:absolute;
 }
 
 .apod-x {
