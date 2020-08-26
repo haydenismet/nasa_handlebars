@@ -1,13 +1,12 @@
-/* GLOBAL VARIABLES */
+////////////////* GLOBAL VARIABLES *////////////
+
 var publicFavourites = [];
 const dateRef = new Date();
 const dateYear = dateRef.getFullYear();
 const dateDay = dateRef.getDate();
 const dateMonth = dateRef.getMonth() + 1;
-//console.log(dateRef,dateYear,dateMonth,dateDay);
 const yearArray = [2015, 2016, 2017, 2018, 2019, 2020];
 const newestYear = yearArray.length - 1; //grab most current year in the array
-//console.log(yearArray[newestYear]);
 const monthsOf = [
   "January",
   "February",
@@ -32,7 +31,8 @@ const daysOf = [
   "Saturday",
 ];
 
-///////////////////* GLOBAL FUNCTIONS *///////////////////
+
+///////////////////* INIT & GLOBALS *///////////////////
 
 //PAGE LOAD - FIRST VISIT 
 fetchCall(
@@ -44,7 +44,17 @@ function resetTemplate() {
   $("#nasa-template-whole").remove();
 }
 
+//SHOW MONTHS ALL MONTHS ARRAY DURING CHANGE ie 2020 
+function loopMonths() {
+  monthsOf.forEach((month, index) => {
+    $(".apod-month").append(
+      `<option value='${index + 1}' class='apod-year'>${month}</option>`
+    )
+  });   
+};
+
 //DATE FORMATTER HELPER -> HANDLEBARS.HELPER
+//CAN YOU USE THE GLOBAL FUNCS FROM THIS
 Handlebars.registerHelper("prettyDate", function (dateInput) {
   let newDate = new Date(dateInput);
   let year = newDate.getFullYear();
@@ -53,9 +63,7 @@ Handlebars.registerHelper("prettyDate", function (dateInput) {
   let monthFull = monthsOf[month];
   let days = newDate.getDay();
   let daysWeek = daysOf[days];
-
   return `${daysWeek} ${day} ${monthFull}, ${year}`;
-  
 });
 
 // TEXT REGEX TRANSFORM -> First paragraph separated
@@ -67,11 +75,8 @@ function transformString(stringy) {
   return sentenceSplits;
 }
 
-///////////////////* RANDOMIZE DATE FUNCTION *///////////////////
-
 //RANDOMIZE DATE//
 async function randomizeDate() {
- 
   let randomMonth = Math.floor(Math.random() * 11) + 1;
   let randomYearSelector = Math.floor(Math.random() * yearArray.length);
   let randomYear = yearArray[randomYearSelector];
@@ -88,27 +93,6 @@ async function randomizeDate() {
   }
 }
 
-///////////////////* DATEPICKER FUNCTIONS *///////////////////
-
-//CLICK PICK DATE LINK
-$(".container").on("click", ".apod-link-2", function (e) {
-  e.preventDefault();
-  $(".apod-bg").css("display", "flex");
-  watchDates();
-});
-
-//SHOW MONTHS ARRAY
-function loopMonths() {
-  monthsOf.forEach((month, index) => {
-    $(".apod-month").append(
-      `<option value='${index + 1}' class='apod-year'>${month}</option>`
-    )
-  });   
-};
-loopMonths();
-
-
-
 //SCRAPE USER INPUT DATES
 async function scrapeDatesSubmit() {
   console.log("submit date");
@@ -119,50 +103,43 @@ async function scrapeDatesSubmit() {
   return chosenDate;
 }
 
+//RENDER FAVOURITES DATA (Like fetch but for favourite tab)
+function favouriteCall(favObject) {
+  let source = $("#nasa-app-fav-template").html();
+  let template = Handlebars.compile(source);
+  let html = template(favObject);
+  $(".container").append(html);
+}
 
-//is there a way we can consolidate date functions you've created?
+
+
 function watchDates() {
-  //For default date for January 2015 (initial before any change of year or month is registered)
-  let testDays = 31;
-  let t = 1;
-  while (t <= testDays) {
-    $(".apod-day-select").append(
-      `<option value='${t}' class='apod-day'>${t}</option>`
-    );
-    t++;
-  }
 
-  //For days updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
+  //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
   $(".apod-month, .apod-year-select").change(function (e) {
     let dayInput = $(".apod-day-select").val(); //grab inputted day onChange
     $(".apod-day-select").children().remove(); //remove days to re-render days
     e.preventDefault();
-
-     
-   
+    let i = 1; //counter ref
     let monthInput = $(".apod-month").val(); // grab inputted month
     let yearInput = $(".apod-year-select").val(); // grab inputted year
     let days = new Date(yearInput, monthInput, 0).getDate(); // calculate days in this month and year, ie feb 2015 28, feb 2016 29. 
 
-
     if(yearArray[newestYear] == yearInput) {
-      $(".apod-month").children().remove(); //remove months to rerender months
+      $(".apod-month").children().remove(); //remove months to rerender months. if selected year is the newest, only show up to current month.
       let d = 0;
       while (monthsOf[d] !== monthsOf[dateMonth]) {
-       // console.log(monthsOf[d]);
         d++;
         $(".apod-month").append(
           `<option value='${d}' class='apod-year'>${monthsOf[d -1]}</option>`
         );
       }
     } else {
-      $(".apod-month").children().remove(); //remove days to re-render days
+      $(".apod-month").children().remove(); //remove months to rerender months. else, show all months,
       loopMonths();
     };
 
-    let i = 1; //counter ref
     if(yearArray[newestYear] == yearInput && monthInput == dateMonth) {  // if year is newest(2020) and userchosen year is 2020, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
-    //console.log('2020 and aug');
       while(i <= dateDay) {
         $(".apod-day-select").append(
           `<option value='${i}' class='apod-day'>${i}</option>`
@@ -184,19 +161,16 @@ function watchDates() {
   });
 }
 
-//SUBMIT SELECTED DATE
-$(".apod-date-form").on("submit", function (e) {
-  e.preventDefault();
-  $(".apod-bg").css('display', 'none');
-  resetTemplate();
-  scrapeDatesSubmit()
-    .then((result) => {
-      return `https://api.nasa.gov/planetary/apod?date=${result}&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD`;
-    })
-    .then((url) => fetchCall(url));
-});
 
-///////////////////* LINK FUNCTIONS/CALLS *///////////////////
+
+///////////////////* CLICK FUNCTIONS *///////////////////
+
+//CLICK PICK DATE LINK
+$(".container").on("click", ".apod-link-2", function (e) {
+  e.preventDefault();
+  $(".apod-bg").css("display", "flex");
+  watchDates();
+});
 
 //TODAYS APOD LINK
 $(".container").on("click", ".apod-link-1", function (e) {
@@ -218,16 +192,13 @@ $(".container").on("click", ".apod-link-3", function (e) {
       .then((url) => fetchCall(url));
   });
 
-
   function removeDatePicker() {
   $(".apod-x").on('click', function(e) {
       e.preventDefault();
       $(".apod-bg").css('display', 'none');
   });
   } 
-
   removeDatePicker();
-///////////////////* FAVOURITES FUNCTIONS/CALLS *///////////////////
 
 //FAVOURITES TAB LINK
 $(".container").on("click", ".apod-link-4", function (e) {
@@ -237,14 +208,6 @@ $(".container").on("click", ".apod-link-4", function (e) {
   resetTemplate();
   favouriteCall(favouriteData);
 });
-
-//RENDER FAVOURITES DATA (Like fetch but for favourite tab)
-function favouriteCall(favObject) {
-  let source = $("#nasa-app-fav-template").html();
-  let template = Handlebars.compile(source);
-  let html = template(favObject);
-  $(".container").append(html);
-}
 
 //GO HOME FROM FAVOURITES TAB
 $(".container").on("click", ".apod-logo-fav", function (e) {
@@ -256,6 +219,21 @@ $(".container").on("click", ".apod-logo-fav", function (e) {
   fetchCall(fetchTodayURL);
 });
 
+//SUBMIT SELECTED DATE
+$(".apod-date-form").on("submit", function (e) {
+  e.preventDefault();
+  $(".apod-bg").css('display', 'none');
+  resetTemplate();
+  scrapeDatesSubmit()
+    .then((result) => {
+      return `https://api.nasa.gov/planetary/apod?date=${result}&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD`;
+    })
+    .then((url) => fetchCall(url));
+});
+
+
+
+
 ///////////////////* GENERIC FETCH *///////////////////
 
 //GENERIC FETCH CALL FOR USE/TEMPLATE - gets passed URL dependent on links clicked and also default renders zoom and heart icons for each image
@@ -265,7 +243,7 @@ function fetchCall(url) {
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   ); 
   //mobile responsive
-  //tidy DATE functions / code massively 
+ 
   //condense the video to img template in app.js so isnt two complete template renders?
   //compare photos with photos within the publicFavourites array, if its been liked you can't add it again. add remove functionality later
   //https://api.nasa.gov/planetary/apod?start_date=2020-06-12&end_date=2020-06-15&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
