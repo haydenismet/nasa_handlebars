@@ -84,24 +84,25 @@
     <script id="nasa-app-fav-template" type="text/x-handlebars-template">
         <div id="nasa-template-whole">
           <div class="nasa-fav-logo">
-            <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo-fav" />
-            <div class="apod-links apod-links-fav">
+            <a href="index.html" class="apod-fav-logo-link"><img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo-fav" /></a>
+            <div class="apod-links apod-favourites-css">
               <div class="apod-link-1">
-                today
+                <i class="fas fa-space-shuttle"></i>
               </div>
               <div class="apod-link-2">
-                pick a date
+                <i class="far fa-calendar-alt"></i>
               </div>
               <div class="apod-link-3">
-                random
+                <i class="fas fa-random"></i>
               </div>
               <div class="apod-link-4">
-                favourites
+                <i class="fas fa-heart" aria-hidden="true"></i>
               </div>
             </div>
           </div>
 
           <div class="nasa-fav-grid">
+            <div class="apod-placeholder"> pictures you like will be saved <strong> here</strong> </div>
             {{#each this}}
               <div class="nasa-fav-grid-item">
                 <img
@@ -124,7 +125,7 @@
     <script id="nasa-app-template" type="text/x-handlebars-template">
         <div id="nasa-template-whole">
           <div class="apod-left-side">
-            <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo" />
+           <a href="index.html"> <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo" /> </a>
             <div class="apod-content">
               <h1 id="apod-explanation-title">
                 {{apodTitle}}

@@ -31,10 +31,9 @@ const daysOf = [
   "Saturday",
 ];
 
-
 ///////////////////* INIT & GLOBALS *///////////////////
 
-//PAGE LOAD - FIRST VISIT 
+//PAGE LOAD - FIRST VISIT
 fetchCall(
   "https://api.nasa.gov/planetary/apod?date=2020-06-12&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD"
 );
@@ -44,14 +43,14 @@ function resetTemplate() {
   $("#nasa-template-whole").remove();
 }
 
-//SHOW MONTHS ALL MONTHS ARRAY DURING CHANGE ie 2020 
+//SHOW MONTHS ALL MONTHS ARRAY DURING CHANGE ie 2020
 function loopMonths() {
   monthsOf.forEach((month, index) => {
     $(".apod-month").append(
       `<option value='${index + 1}' class='apod-year'>${month}</option>`
-    )
-  });   
-};
+    );
+  });
+}
 
 //DATE FORMATTER HELPER -> HANDLEBARS.HELPER
 //CAN YOU USE THE GLOBAL FUNCS FROM THIS
@@ -82,7 +81,7 @@ async function randomizeDate() {
   let randomYear = yearArray[randomYearSelector];
   let daysInMonth = new Date(randomYear, randomMonth, 0).getDate();
   let randomDay = Math.floor(Math.random() * daysInMonth) + 1;
-  let newRandomDate = new Date(randomYear, randomMonth, randomDay);;
+  let newRandomDate = new Date(randomYear, randomMonth, randomDay);
   //IF FUTURE DATE
   if (newRandomDate > dateRef) {
     console.log("future date, randomizing again");
@@ -111,10 +110,7 @@ function favouriteCall(favObject) {
   $(".container").append(html);
 }
 
-
-
 function watchDates() {
-
   //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
   $(".apod-month, .apod-year-select").change(function (e) {
     let dayInput = $(".apod-day-select").val(); //grab inputted day onChange
@@ -123,24 +119,25 @@ function watchDates() {
     let i = 1; //counter ref
     let monthInput = $(".apod-month").val(); // grab inputted month
     let yearInput = $(".apod-year-select").val(); // grab inputted year
-    let days = new Date(yearInput, monthInput, 0).getDate(); // calculate days in this month and year, ie feb 2015 28, feb 2016 29. 
+    let days = new Date(yearInput, monthInput, 0).getDate(); // calculate days in this month and year, ie feb 2015 28, feb 2016 29.
 
-    if(yearArray[newestYear] == yearInput) {
+    if (yearArray[newestYear] == yearInput) {
       $(".apod-month").children().remove(); //remove months to rerender months. if selected year is the newest, only show up to current month.
       let d = 0;
       while (monthsOf[d] !== monthsOf[dateMonth]) {
         d++;
         $(".apod-month").append(
-          `<option value='${d}' class='apod-year'>${monthsOf[d -1]}</option>`
+          `<option value='${d}' class='apod-year'>${monthsOf[d - 1]}</option>`
         );
       }
     } else {
       $(".apod-month").children().remove(); //remove months to rerender months. else, show all months,
       loopMonths();
-    };
+    }
 
-    if(yearArray[newestYear] == yearInput && monthInput == dateMonth) {  // if year is newest(2020) and userchosen year is 2020, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
-      while(i <= dateDay) {
+    if (yearArray[newestYear] == yearInput && monthInput == dateMonth) {
+      // if year is newest(2020) and userchosen year is 2020, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
+      while (i <= dateDay) {
         $(".apod-day-select").append(
           `<option value='${i}' class='apod-day'>${i}</option>`
         );
@@ -160,8 +157,6 @@ function watchDates() {
     $(".apod-month").val(monthInput);
   });
 }
-
-
 
 ///////////////////* CLICK FUNCTIONS *///////////////////
 
@@ -183,22 +178,22 @@ $(".container").on("click", ".apod-link-1", function (e) {
 
 //RANDOMIZE DATE LINK CLICKED
 $(".container").on("click", ".apod-link-3", function (e) {
-    e.preventDefault();
-    resetTemplate();
-    randomizeDate()
-      .then((result) => {
-        return `https://api.nasa.gov/planetary/apod?date=${result}&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD`;
-      })
-      .then((url) => fetchCall(url));
-  });
+  e.preventDefault();
+  resetTemplate();
+  randomizeDate()
+    .then((result) => {
+      return `https://api.nasa.gov/planetary/apod?date=${result}&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD`;
+    })
+    .then((url) => fetchCall(url));
+});
 
-  function removeDatePicker() {
-  $(".apod-x").on('click', function(e) {
-      e.preventDefault();
-      $(".apod-bg").css('display', 'none');
+function removeDatePicker() {
+  $(".apod-x").on("click", function (e) {
+    e.preventDefault();
+    $(".apod-bg").css("display", "none");
   });
-  } 
-  removeDatePicker();
+}
+removeDatePicker();
 
 //FAVOURITES TAB LINK
 $(".container").on("click", ".apod-link-4", function (e) {
@@ -222,7 +217,7 @@ $(".container").on("click", ".apod-logo-fav", function (e) {
 //SUBMIT SELECTED DATE
 $(".apod-date-form").on("submit", function (e) {
   e.preventDefault();
-  $(".apod-bg").css('display', 'none');
+  $(".apod-bg").css("display", "none");
   resetTemplate();
   scrapeDatesSubmit()
     .then((result) => {
@@ -231,21 +226,18 @@ $(".apod-date-form").on("submit", function (e) {
     .then((url) => fetchCall(url));
 });
 
-
-
-
 ///////////////////* GENERIC FETCH *///////////////////
 
 //GENERIC FETCH CALL FOR USE/TEMPLATE - gets passed URL dependent on links clicked and also default renders zoom and heart icons for each image
 function fetchCall(url) {
-  //console.log("fetching");
   $(".container").append(
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
-  ); 
+  );
   //mobile responsive
- 
-  //condense the video to img template in app.js so isnt two complete template renders?
+
+  
   //compare photos with photos within the publicFavourites array, if its been liked you can't add it again. add remove functionality later
+  
   //https://api.nasa.gov/planetary/apod?start_date=2020-06-12&end_date=2020-06-15&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
   //https://api.nasa.gov/planetary/apod?date=2020-06-12&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
   //https://api.nasa.gov/planetary/apod?api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
@@ -253,14 +245,23 @@ function fetchCall(url) {
     .then((response) => response.json())
     .then((data) => {
       //  console.log(data);
-      let { date, explanation, title, url, media_type, copyright, service_version, ...rest } = data;
-      // console.log(explanation);
-      // console.log(explanation);
+      let {
+        date,
+        explanation,
+        title,
+        url,
+        media_type,
+        copyright,
+        service_version,
+        ...rest
+      } = data;
+     
       let explanationSplit = transformString(explanation);
 
       let source = $("#nasa-app-template").html();
       let template = Handlebars.compile(source);
 
+    
       let context = {
         apodTitle: title,
         apodDate: date,
@@ -268,26 +269,17 @@ function fetchCall(url) {
         apodDescOpener: explanationSplit[0],
         apodDescRemaining: explanationSplit[1],
         apodCopyright: rest.copyright,
-        apodMediaType:media_type,
-        apodCopyright:copyright,
-        apodVersion:service_version,
+        apodMediaType: media_type,
+        apodCopyright: copyright,
+        apodVersion: service_version,
       };
-
+      
       if (media_type === "video") {
         console.log("youtube link");
-        context = {
-          apodTitle: title,
-          apodDate: date,
-          apodVid: url,
-          apodDescOpener: explanationSplit[0],
-          apodDescRemaining: explanationSplit[1],
-          apodMediaType:media_type,
-          apodCopyright:copyright,
-          apodVersion:service_version,
-        };
+        delete context.apodURL;
+        context.apodVid = url;
       }
 
-      // console.log(context);
       $(".apod-spinner").remove();
       let html = template(context);
       $(".container").append(html);
@@ -323,5 +315,3 @@ function fetchCall(url) {
       });
     });
 }
-
-

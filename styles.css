@@ -15,10 +15,12 @@ body {
   font-family: "Nunito Sans", sans-serif;
   display: flex;
   align-items:center;
-  height: 100vh;
+  min-height:100vh;
 }
 
-
+.apod-placeholder {
+padding:27rem 0;
+}
 .container {
   width: 120rem;
   background-color: white;
@@ -176,21 +178,25 @@ iframe {
 }
 
 .apod-logo-fav {
-  display: block;
-  width: 40%;
+ max-width:85%;
   align-self: center;
+}
+
+.apod-fav-logo-link {
+  display:flex;
+  flex:1;
 }
 
 .nasa-fav-logo {
   display: flex;
   justify-content: center;
   cursor: pointer;
-  flex-direction: column;
+ 
   margin-top: 2rem;
 }
 
-.apod-links-fav {
-  justify-content: center !important;
+.apod-favourites-css {
+flex:1;
 }
 
 .apod-content {
@@ -312,6 +318,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width:100%;
 }
 
 .nasa-fav-grid-item {
