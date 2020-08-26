@@ -380,33 +380,58 @@ img.fav-item-url {
 }
 
 .apod-date-form select {
-  margin:0px 10px;
+  margin: 0px 10px;
   text-align-last: center;
-  padding: 1rem 2rem;
-  font-size:3rem;
-  font-weight:600;
-  font-family: "Nunito Sans", sans-serif;
-  border-radius:5px;
+  padding: 0rem 2rem;
+  font-size: 3.5rem;
+  font-weight: 600;
+  font-family: monospace;
+  border-style: none;
+  color: white;
+  background: none;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.3rem;
+ /* border-bottom: 0.5rem solid white;*/
+
+}
+
+select option {
+  background-color:black;
+  border-style:none;
+  border:0px;
+  outline:0px;
 }
 
 
 .apod-submit-date {
   font-family: "Nunito Sans", sans-serif;
   font-size: 3rem;
-  font-weight:600;
+  font-weight: 600;
   padding: 1rem 2rem;
-  border-radius:5px;
-  margin-left:10px;
+  border-radius: 100rem;
+  margin-left: 2rem;
+  border-style: none;
+  height: 7.5rem;
+  background: none;
+  color: white;
+  border: 0.2rem solid white;
+  cursor: pointer;
+}
+
+.dates-container-border {
+  border:0.5rem solid white;
+  display:inline-block;
+  padding:1rem;
 }
 
 .apod-x {
   font-size: 1.6rem;
-  color: #777777;
-  background-color: white;
+  color: white;
+  font-weight:900;
   align-self: flex-end;
   padding: 0.5rem 1rem;
   margin-bottom: 2rem;
-  border-radius: 200rem;
   cursor:pointer;
   position: absolute;
     right: -4rem;
