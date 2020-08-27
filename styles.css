@@ -20,7 +20,30 @@ body {
 
 .apod-placeholder {
 padding:27rem 0;
+color:#777777;
 }
+
+.apod-placeholder strong {
+  color:black;
+  opacity:0.7;
+}
+
+.apod-psst {
+    font-style: italic;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.3rem;
+    margin-top:0.5rem;
+    color:#777777;
+}
+
+.apod-psst > .fa-heart {
+  margin:0 0.8rem;
+  font-size:1.6rem;
+}
+
 .container {
   width: 120rem;
   background-color: white;
@@ -178,7 +201,7 @@ iframe {
 }
 
 .apod-logo-fav {
- max-width:85%;
+ max-width:82%;
   align-self: center;
 }
 
