@@ -198,10 +198,12 @@ removeDatePicker();
 //FAVOURITES TAB LINK
 $(".container").on("click", ".apod-link-4", function (e) {
   e.preventDefault();
-  let favouriteData = publicFavourites;
-  //console.log(favouriteData);
   resetTemplate();
-  favouriteCall(favouriteData);
+  favouriteCall(publicFavourites);
+  if(publicFavourites.length != 0) {
+    console.log("longerthan1");
+    $(".apod-placeholder").remove();
+  }
 });
 
 //GO HOME FROM FAVOURITES TAB
@@ -209,7 +211,6 @@ $(".container").on("click", ".apod-logo-fav", function (e) {
   e.preventDefault();
   let fetchTodayURL =
     "https://api.nasa.gov/planetary/apod?api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD";
-  //console.log(fetchTodayURL);
   resetTemplate();
   fetchCall(fetchTodayURL);
 });
@@ -234,13 +235,9 @@ function fetchCall(url) {
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
   //mobile responsive
-
-  
-  //compare photos with photos within the publicFavourites array, if its been liked you can't add it again. add remove functionality later
-  
-  //https://api.nasa.gov/planetary/apod?start_date=2020-06-12&end_date=2020-06-15&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
-  //https://api.nasa.gov/planetary/apod?date=2020-06-12&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
-  //https://api.nasa.gov/planetary/apod?api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD
+  //compare photos with photos within the publicFavourites array, if its been liked you can't add it again (already been liked)
+  //add remove functionality to favourites
+  //add zoom to favourited pics
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
