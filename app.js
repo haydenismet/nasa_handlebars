@@ -109,6 +109,7 @@ function favouriteCall(favObject) {
   let html = template(favObject);
   $(".container").append(html);
   zoomImage(".icon__search__fav");
+  removeFavImage();
 }
 
 function zoomImage(selector) {
@@ -125,6 +126,22 @@ function zoomImage(selector) {
     $(".apod-expanded-src").css("display", "flex");
   });
 };
+
+//does this need tidying
+function removeFavImage() {
+  $(".apod-remove-fav").on("click", function(e) {
+    e.preventDefault();
+    let favURL = $(this).siblings(".apod-img.fav-item-url").attr('src');
+    publicFavourites.forEach((item,i) => {
+    if(item.url == favURL) {
+      console.log('match',i);
+     let index = publicFavourites.indexOf(item);
+     publicFavourites.splice(index,1);
+    }
+    });
+   $(this).parent().remove();
+  });
+}
 
 function watchDates() {
   //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
@@ -250,6 +267,7 @@ function fetchCall(url) {
   $(".container").append(
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
+  
   //mobile responsive
   //compare photos with photos within the publicFavourites array, if its been liked you can't add it again (already been liked)
   //add remove functionality to favourites
@@ -257,7 +275,7 @@ function fetchCall(url) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      //  console.log(data);
+      // console.log(data);
       let {
         date,
         explanation,
@@ -311,14 +329,25 @@ function fetchCall(url) {
       //HEART ICON
       $(".icon__heart").one("click", function (e) {
         e.preventDefault();
-        $(".fa-heart").css("color", "#f78ba6");
-        publicFavourites.push(data);
-        publicFavourites.forEach((apod) => {
-          apod.favouritedPic = true;
-          //  console.log(apod);
+        $(".icon__heart").css('color', '#f78ba6');
+        console.log($(this).siblings(".apod-img").attr('src'));
+        let testFavUrlExists = $(this).siblings(".apod-img").attr('src');
+        
+        publicFavourites.forEach(apod => {
+         if(apod.url === testFavUrlExists){
+           console.log("already liked");
+         }
         });
+
+        publicFavourites.unshift(data);
+        publicFavourites[0].favouritedPic = true;
+     
       });
-    });
+
+      
+});
+    
 }
+
 
 
