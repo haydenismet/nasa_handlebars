@@ -108,7 +108,23 @@ function favouriteCall(favObject) {
   let template = Handlebars.compile(source);
   let html = template(favObject);
   $(".container").append(html);
+  zoomImage(".icon__search__fav");
 }
+
+function zoomImage(selector) {
+  $(selector).on("click", function (e) {
+    e.preventDefault();
+   // console.log($(this).prevAll(".apod-img").attr('src'));
+    //console.log($(this).siblings(".apod-img").attr('src'));
+   let loadedImg = $(this).siblings(".apod-img").attr('src');
+    //let loadedImg = $(".apod-img").attr("src");
+    $(".modal, .apod-img-expanded").css("display", "flex");
+    $(".apod-img-expanded").html(
+      `<img src=${loadedImg} class='apod-expanded-src'>`
+    );
+    $(".apod-expanded-src").css("display", "flex");
+  });
+};
 
 function watchDates() {
   //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
@@ -282,15 +298,7 @@ function fetchCall(url) {
       $(".container").append(html);
 
       //EXPAND IMAGE
-      $(".icon__search").on("click", function (e) {
-        e.preventDefault();
-        let loadedImg = $("#apod-img").attr("src");
-        $(".modal, .apod-img-expanded").css("display", "flex");
-        $(".apod-img-expanded").html(
-          `<img src=${loadedImg} class='apod-expanded-src'>`
-        );
-        $(".apod-expanded-src").css("display", "flex");
-      });
+    zoomImage(".icon__search");
 
       //CLOSE EXPAND
       $(".modal, .apod-img-expanded, .apod-expanded-src").on("click", function (
@@ -312,3 +320,5 @@ function fetchCall(url) {
       });
     });
 }
+
+

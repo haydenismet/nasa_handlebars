@@ -105,10 +105,13 @@
             <div class="apod-placeholder"> pictures you like will be saved <strong> here</strong> <br> <span class="apod-psst">just click  <i class="fas fa-heart" aria-hidden="true"></i> on a picture  </span> </div>
             {{#each this}}
               <div class="nasa-fav-grid-item">
+                <label class="icon__search__fav">
+                  <i class="fas fa-search-plus"></i>
+                </label>
                 <img
                   src="{{url}}"
                   alt="Nasa Favourited Image"
-                  class="fav-item-url"
+                  class="apod-img fav-item-url"
                 />
                 <div class="fav-item-title">
                   {{title}}
@@ -185,7 +188,7 @@
                 >
                 </iframe>
                 {{else}}
-              <img id="apod-img" src="{{apodURL}}" />
+              <img class="apod-img" src="{{apodURL}}" />
               {{/if}}
               {{#if apodURL}}
               <label class="icon__heart">
