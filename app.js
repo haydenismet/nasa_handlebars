@@ -132,13 +132,8 @@ function zoomImage(selector) {
 function removeFavImage() {
   $(".apod-remove-fav").on("click", function(e) {
     e.preventDefault();
-    let favURL = $(this).siblings(".apod-img.fav-item-url").attr('src');
-    publicFavourites.forEach((item,i) => {
-    if(item.url == favURL) {
-      console.log('match',i);
-     publicFavourites.splice(i,1);
-    }
-    });
+   // let favURL = $(this).siblings(".apod-img").attr('src');
+    loopAndUpdate(publicFavourites,".apod-img.fav-item-url");
    $(this).parent().remove();
   });
 }
@@ -329,16 +324,8 @@ function fetchCall(url) {
       $(".icon__heart").one("click", function (e) {
         e.preventDefault();
         $(".icon__heart").css('color', '#f78ba6');
-        console.log($(this).siblings(".apod-img").attr('src'));
-        let testFavUrlExists = $(this).siblings(".apod-img").attr('src');
-        
-        publicFavourites.forEach((apod, i) => {
-         if(apod.url === testFavUrlExists){
-           console.log("already liked");
-           publicFavourites.splice(i,1);
-         }
-        });
-
+        //console.log($(this).siblings(".apod-img").attr('src'));
+        loopAndUpdate(publicFavourites, ".apod-img");
         publicFavourites.unshift(data);
         publicFavourites[0].favouritedPic = true;
      
@@ -350,4 +337,12 @@ function fetchCall(url) {
 }
 
 
-
+function loopAndUpdate(arrayOfObj, selly) {
+  let testFavUrlExists = $(selly).attr('src');
+  console.log($(selly).attr('src'));
+  arrayOfObj.forEach((apod, i) => {
+   if(apod.url === testFavUrlExists){
+     arrayOfObj.splice(i,1);
+   }
+  });
+}
