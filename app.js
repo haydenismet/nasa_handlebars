@@ -53,7 +53,6 @@ function loopMonths() {
 }
 
 //DATE FORMATTER HELPER -> HANDLEBARS.HELPER
-//CAN YOU USE THE GLOBAL FUNCS FROM THIS
 Handlebars.registerHelper("prettyDate", function (dateInput) {
   let newDate = new Date(dateInput);
   let year = newDate.getFullYear();
@@ -116,10 +115,7 @@ function favouriteCall(favObject) {
 function zoomImage(selector) {
   $(selector).on("click", function (e) {
     e.preventDefault();
-   // console.log($(this).prevAll(".apod-img").attr('src'));
-    //console.log($(this).siblings(".apod-img").attr('src'));
-   let loadedImg = $(this).siblings(".apod-img").attr('src');
-    //let loadedImg = $(".apod-img").attr("src");
+    let loadedImg = $(this).siblings(".apod-img").attr('src');
     $(".modal, .apod-img-expanded").css("display", "flex");
     $(".apod-img-expanded").html(
       `<img src=${loadedImg} class='apod-expanded-src'>`
@@ -138,6 +134,29 @@ function removeFavImage() {
   });
 }
 
+//loops publicFavourite array of objects, if the current 'liked' photo already exists in the publicFavourite, remove it and add this newer like.
+function loopAndUpdate(arrayOfObj, selly) {
+  let testFavUrlExists = $(selly).attr('src');
+  console.log($(selly).attr('src'));
+  arrayOfObj.forEach((apod, i) => {
+   if(apod.url === testFavUrlExists){
+     arrayOfObj.splice(i,1);
+   }
+  });
+}
+
+//check if already in the publicFavourites array of objects, if so, keep heart set to red as already liked for user. 
+function checkIfLiked(passObje) {
+  let testFavUrlExists = $(".apod-img").attr('src');
+  passObje.forEach((apod, i) => {
+   if(apod.url === testFavUrlExists){
+     console.log("already liked my dude");
+     $(".icon__heart").css("color","rgb(247, 139, 166)");
+   }
+  });
+}
+
+//watches changes by the user on the dates inputted to dynamically generate the correct days ie february per year, or that 2020 is only up to a certain month. 
 function watchDates() {
   //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
   $(".apod-month, .apod-year-select").change(function (e) {
@@ -215,6 +234,7 @@ $(".container").on("click", ".apod-link-3", function (e) {
     .then((url) => fetchCall(url));
 });
 
+//click off date picker
 function removeDatePicker() {
   $(".apod-x").on("click", function (e) {
     e.preventDefault();
@@ -262,10 +282,10 @@ function fetchCall(url) {
   $(".container").append(
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
-  //two identical forEachs basically in remove/like so potentially try and turn them into functions you can call within and just pass the publicFavourites object to it as its a public object
+  
   //see if you can turn a lot of repeatable code into functions for DRY principle.
   //mobile responsive
-  //compare photos with photos within the publicFavourites array, if its been liked you can't add it again (already been liked)
+  //add unlike functionality from within the actual image liked page? currently have it so if its clicked again it just readds it to the front of the list. 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -311,7 +331,7 @@ function fetchCall(url) {
 
       //EXPAND IMAGE
     zoomImage(".icon__search");
-
+      checkIfLiked(publicFavourites);
       //CLOSE EXPAND
       $(".modal, .apod-img-expanded, .apod-expanded-src").on("click", function (
         e
@@ -337,12 +357,4 @@ function fetchCall(url) {
 }
 
 
-function loopAndUpdate(arrayOfObj, selly) {
-  let testFavUrlExists = $(selly).attr('src');
-  console.log($(selly).attr('src'));
-  arrayOfObj.forEach((apod, i) => {
-   if(apod.url === testFavUrlExists){
-     arrayOfObj.splice(i,1);
-   }
-  });
-}
+
