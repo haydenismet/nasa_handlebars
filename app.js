@@ -112,6 +112,7 @@ function favouriteCall(favObject) {
   removeFavImage();
 }
 
+//zooms image in 
 function zoomImage(selector) {
   $(selector).on("click", function (e) {
     e.preventDefault();
@@ -127,7 +128,7 @@ function zoomImage(selector) {
   });
 };
 
-//does this need tidying
+//removes fav image from dom and publicFavourites array
 function removeFavImage() {
   $(".apod-remove-fav").on("click", function(e) {
     e.preventDefault();
@@ -135,8 +136,7 @@ function removeFavImage() {
     publicFavourites.forEach((item,i) => {
     if(item.url == favURL) {
       console.log('match',i);
-     let index = publicFavourites.indexOf(item);
-     publicFavourites.splice(index,1);
+     publicFavourites.splice(i,1);
     }
     });
    $(this).parent().remove();
@@ -267,11 +267,10 @@ function fetchCall(url) {
   $(".container").append(
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
-  
+  //two identical forEachs basically in remove/like so potentially try and turn them into functions you can call within and just pass the publicFavourites object to it as its a public object
+  //see if you can turn a lot of repeatable code into functions for DRY principle.
   //mobile responsive
   //compare photos with photos within the publicFavourites array, if its been liked you can't add it again (already been liked)
-  //add remove functionality to favourites
-  //add zoom to favourited pics
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -333,9 +332,10 @@ function fetchCall(url) {
         console.log($(this).siblings(".apod-img").attr('src'));
         let testFavUrlExists = $(this).siblings(".apod-img").attr('src');
         
-        publicFavourites.forEach(apod => {
+        publicFavourites.forEach((apod, i) => {
          if(apod.url === testFavUrlExists){
            console.log("already liked");
+           publicFavourites.splice(i,1);
          }
         });
 
