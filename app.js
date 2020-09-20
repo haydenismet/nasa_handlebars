@@ -287,6 +287,7 @@ function fetchCall(url) {
   );
   //some funcs async some funcs reg, some arrow some reg
   //mobile responsive
+  //remove console logs
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
