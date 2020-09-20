@@ -43,7 +43,7 @@ function resetTemplate() {
   $("#nasa-template-whole").remove();
 }
 
-//SHOW MONTHS ALL MONTHS ARRAY DURING CHANGE ie 2020
+//SHOW MONTHS ARRAY FOR PICK-A-DATE
 function loopMonths() {
   monthsOf.forEach((month, index) => {
     $(".apod-month").append(
@@ -124,12 +124,14 @@ function zoomImage(selector) {
   });
 };
 
-//removes fav image from dom and publicFavourites array
+//removes fav image from dom 
 function removeFavImage() {
   $(".apod-remove-fav").on("click", function(e) {
     e.preventDefault();
-   // let favURL = $(this).siblings(".apod-img").attr('src');
-    loopAndUpdate(publicFavourites,".apod-img.fav-item-url");
+    //let favURL = $(this).siblings(".apod-img").attr('src');
+    let favURL = $(this).siblings(".apod-img");
+    console.log(favURL);
+    loopAndUpdate(publicFavourites,favURL);
    $(this).parent().remove();
   });
 }
@@ -137,9 +139,11 @@ function removeFavImage() {
 //loops publicFavourite array of objects, if the current 'liked' photo already exists in the publicFavourite, remove it and add this newer like.
 function loopAndUpdate(arrayOfObj, selly) {
   let testFavUrlExists = $(selly).attr('src');
-  console.log($(selly).attr('src'));
+ // console.log($(selly).attr('src'));
   arrayOfObj.forEach((apod, i) => {
+//NEED 'THIS' as it just finds first url that exists in publicFavourites array and splices it. needs to be able to identify/uniquely target better.
    if(apod.url === testFavUrlExists){
+     console.log(apod.url, '+', testFavUrlExists);
      arrayOfObj.splice(i,1);
    }
   });
@@ -276,16 +280,13 @@ $(".apod-date-form").on("submit", function (e) {
 });
 
 ///////////////////* GENERIC FETCH *///////////////////
-
 //GENERIC FETCH CALL FOR USE/TEMPLATE - gets passed URL dependent on links clicked and also default renders zoom and heart icons for each image
 function fetchCall(url) {
   $(".container").append(
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
-  
-  //see if you can turn a lot of repeatable code into functions for DRY principle.
+  //some funcs async some funcs reg, some arrow some reg
   //mobile responsive
-  //add unlike functionality from within the actual image liked page? currently have it so if its clicked again it just readds it to the front of the list. 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -330,7 +331,7 @@ function fetchCall(url) {
       $(".container").append(html);
 
       //EXPAND IMAGE
-    zoomImage(".icon__search");
+      zoomImage(".icon__search");
       checkIfLiked(publicFavourites);
       //CLOSE EXPAND
       $(".modal, .apod-img-expanded, .apod-expanded-src").on("click", function (
@@ -345,8 +346,8 @@ function fetchCall(url) {
         e.preventDefault();
         $(".icon__heart").css('color', '#f78ba6');
         //console.log($(this).siblings(".apod-img").attr('src'));
-        loopAndUpdate(publicFavourites, ".apod-img");
-        publicFavourites.unshift(data);
+        loopAndUpdate(publicFavourites, ".apod-img"); //splice, then add again below 
+        publicFavourites.unshift(data); //to beginning of array
         publicFavourites[0].favouritedPic = true;
      
       });
