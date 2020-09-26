@@ -675,7 +675,7 @@ body {
 }
 
 .apod-img {
-  width:auto;
+  width:100%;
   margin-top:2.5rem;
 }
 
@@ -700,4 +700,33 @@ label.apod-remove-fav {
   top: 3.5rem;
 }
 
+}
+
+@media only screen and (max-width:845px) {
+  .apod-logo {
+    width:100%;
+  }
+
+  .apod-expanded-src {
+    height: 90vh;
+    width: 90vw;
+    object-fit: contain;
+}
+}
+
+@media only screen and (max-width:520px) {
+.container {
+  padding:0 5rem;
+}
+}
+
+@media only screen and (max-width:417px) {
+  .container {
+    padding: 0 3rem;
+  }
+
+  .apod-links-mobile {
+    margin-top:0;
+    font-size:3rem;
+  }
 }

@@ -278,8 +278,10 @@ function fetchCall(url) {
   );
   //some funcs async some funcs reg, some arrow some reg
   //mobile responsive
-  //remove console logs
-  //dont refresh on logo click as wipes array?
+//video media queries
+//zoom media queries - should be done
+//datepicker media queries
+
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
