@@ -630,103 +630,123 @@ select option {
 }
 
 .apod-links-mobile {
-  display:none;
+  display: none;
 }
 
 .apod-footer-mobile {
-  display:none;
+  display: none;
 }
 
-@media only screen and (max-width:1050px) {
+@media only screen and (max-width: 1200px) {
+  body {
+    background-color: white;
+  }
 
-body {
-  background-color:white;
-}
-
-.container {
-  box-shadow:none;
-  margin: 4rem auto;
+  .container {
+    box-shadow: none;
+    margin: 4rem auto;
     padding: 0 10rem;
-}
+  }
 
-.apod-logo {  
-  display: flex;
-  width: 70%;
-  margin: 0rem auto 2rem auto;
-}
-
-#nasa-template-whole {
-  flex-direction:column;
-}
-
-.apod-right-side {
-  margin:0;
-}
-
-.apod-links-mobile {
-  display: flex;
-  justify-content: space-between;
-  font-size: 4rem;
-  margin-top: 2rem;
-}
-
-.apod-links {
-  display:none;
-}
-
-.apod-img {
-  width:100%;
-  margin-top:2.5rem;
-}
-
-.apod-footer {
-  display:none;
-}
-
-.apod-footer-mobile {
-  display:flex;
-}
-
-.icon__search {
-  top:43rem;
-}
-
-.icon__heart {
-  top:43rem;  
-}
-
-label.apod-remove-fav {
-  right: 1.5rem;
-  top: 3.5rem;
-}
-
-}
-
-@media only screen and (max-width:845px) {
   .apod-logo {
-    width:100%;
+    display: flex;
+    width: 60%;
+    margin: 0rem auto 2rem auto;
+  }
+
+  #nasa-template-whole {
+    flex-direction: column;
+  }
+
+  .apod-right-side {
+    margin: 0;
+  }
+
+  .apod-links-mobile {
+    display: flex;
+    justify-content: space-between;
+    font-size: 4rem;
+    margin-top: 2rem;
+  }
+
+  .apod-links {
+    display: none;
+  }
+
+  .apod-img {
+    width: 100%;
+    margin-top: 2.5rem;
+  }
+
+  .apod-footer {
+    display: none;
+  }
+
+  .apod-footer-mobile {
+    display: flex;
+  }
+
+  .icon__search {
+    top: 43rem;
+  }
+
+  .icon__heart {
+    top: 43rem;
+  }
+
+  label.apod-remove-fav {
+    right: 1.5rem;
+    top: 3.5rem;
+  }
+
+  .apod-logo-fav {
+    margin:auto;
+    display:flex;
+    max-width:60%;
+  }
+
+  .apod-placeholder {
+    margin-top:15rem;
+  }
+}
+
+@media only screen and (max-width:992px) {
+  .apod-logo {
+    width:70%;
+  }
+}
+
+@media only screen and (max-width: 845px) {
+  .apod-logo {
+    width: 100%;
   }
 
   .apod-expanded-src {
     height: 90vh;
     width: 90vw;
     object-fit: contain;
-}
-}
-
-@media only screen and (max-width:520px) {
-.container {
-  padding:0 5rem;
-}
+  }
 }
 
-@media only screen and (max-width:417px) {
+@media only screen and (max-width:600px) {
+  .apod-links-mobile {
+    font-size:3rem;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .container {
+    padding: 0 5rem;
+  }
+}
+
+@media only screen and (max-width: 417px) {
   .container {
     padding: 0 3rem;
   }
 
   .apod-links-mobile {
-    margin-top:0;
-    font-size:3rem;
+    margin-top: 0;
+    font-size: 3rem;
   }
 }

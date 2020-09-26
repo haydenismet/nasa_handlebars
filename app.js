@@ -281,7 +281,7 @@ function fetchCall(url) {
 //video media queries
 //zoom media queries - should be done
 //datepicker media queries
-
+//favourites section
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
