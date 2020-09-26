@@ -83,7 +83,6 @@ async function randomizeDate() {
   let newRandomDate = new Date(randomYear, randomMonth, randomDay);
   //IF FUTURE DATE
   if (newRandomDate > dateRef) {
-    console.log("future date, randomizing again");
     return randomizeDate();
   } else {
     let randomDate = `${randomYear}-${randomMonth}-${randomDay}`;
@@ -93,7 +92,6 @@ async function randomizeDate() {
 
 //SCRAPE USER INPUT DATES
 async function scrapeDatesSubmit() {
-  console.log("submit date");
   let dayInput = $(".apod-day-select").val();
   let monthInput = $(".apod-month").val();
   let yearInput = $(".apod-year-select").val();
@@ -128,9 +126,7 @@ function zoomImage(selector) {
 function removeFavImage() {
   $(".apod-remove-fav").on("click", function(e) {
     e.preventDefault();
-    //let favURL = $(this).siblings(".apod-img").attr('src');
     let favURL = $(this).siblings(".apod-img");
-    console.log(favURL);
     loopAndUpdate(publicFavourites,favURL);
    $(this).parent().remove();
   });
@@ -139,11 +135,8 @@ function removeFavImage() {
 //loops publicFavourite array of objects, if the current 'liked' photo already exists in the publicFavourite, remove it and add this newer like.
 function loopAndUpdate(arrayOfObj, selly) {
   let testFavUrlExists = $(selly).attr('src');
- // console.log($(selly).attr('src'));
   arrayOfObj.forEach((apod, i) => {
-//NEED 'THIS' as it just finds first url that exists in publicFavourites array and splices it. needs to be able to identify/uniquely target better.
    if(apod.url === testFavUrlExists){
-     console.log(apod.url, '+', testFavUrlExists);
      arrayOfObj.splice(i,1);
    }
   });
@@ -154,7 +147,6 @@ function checkIfLiked(passObje) {
   let testFavUrlExists = $(".apod-img").attr('src');
   passObje.forEach((apod, i) => {
    if(apod.url === testFavUrlExists){
-     console.log("already liked my dude");
      $(".icon__heart").css("color","rgb(247, 139, 166)");
    }
   });
@@ -253,7 +245,6 @@ $(".container").on("click", ".apod-link-4", function (e) {
   resetTemplate();
   favouriteCall(publicFavourites);
   if(publicFavourites.length != 0) {
-    console.log("longerthan1");
     $(".apod-placeholder").remove();
   }
 });
@@ -288,10 +279,10 @@ function fetchCall(url) {
   //some funcs async some funcs reg, some arrow some reg
   //mobile responsive
   //remove console logs
+  //dont refresh on logo click as wipes array?
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
       let {
         date,
         explanation,
@@ -322,7 +313,6 @@ function fetchCall(url) {
       };
       
       if (media_type === "video") {
-        console.log("youtube link");
         delete context.apodURL;
         context.apodVid = url;
       }
@@ -346,7 +336,6 @@ function fetchCall(url) {
       $(".icon__heart").one("click", function (e) {
         e.preventDefault();
         $(".icon__heart").css('color', '#f78ba6');
-        //console.log($(this).siblings(".apod-img").attr('src'));
         loopAndUpdate(publicFavourites, ".apod-img"); //splice, then add again below 
         publicFavourites.unshift(data); //to beginning of array
         publicFavourites[0].favouritedPic = true;
