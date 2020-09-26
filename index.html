@@ -136,7 +136,23 @@
     <script id="nasa-app-template" type="text/x-handlebars-template">
         <div id="nasa-template-whole">
           <div class="apod-left-side">
-           <a href="index.html"> <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo" /> </a>
+          <!-- <a href="index.html">--> <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo" /> <!--</a>-->
+
+           <div class="apod-links-mobile">
+            <div class="apod-link-1">
+              <i class="fas fa-space-shuttle"></i>
+            </div>
+            <div class="apod-link-2">
+              <i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="apod-link-3">
+              <i class="fas fa-random"></i>
+            </div>
+            <div class="apod-link-4">
+              <i class="fas fa-heart" aria-hidden="true"></i>
+            </div>
+          </div>
+
             <div class="apod-content">
               <h1 id="apod-explanation-title">
                 {{apodTitle}}
@@ -210,6 +226,11 @@
               </div>
             </div>
           </div>
+          <div class="apod-footer-mobile">
+            <a href="https://github.com/joshua-tree-ctrl" target="_blank" class="apod-ext-links">  <i class="fab fa-github"></i></a>
+            <a href="https://codepen.io/flux_capacitor_" target="_blank" class="apod-ext-links">   <i class="fab fa-codepen"></i></a>
+         
+        </div>
         </div>
       </script>
   </div>

@@ -628,3 +628,76 @@ select option {
     transform: scale(1);
   }
 }
+
+.apod-links-mobile {
+  display:none;
+}
+
+.apod-footer-mobile {
+  display:none;
+}
+
+@media only screen and (max-width:1050px) {
+
+body {
+  background-color:white;
+}
+
+.container {
+  box-shadow:none;
+  margin: 4rem auto;
+    padding: 0 10rem;
+}
+
+.apod-logo {  
+  display: flex;
+  width: 70%;
+  margin: 0rem auto 2rem auto;
+}
+
+#nasa-template-whole {
+  flex-direction:column;
+}
+
+.apod-right-side {
+  margin:0;
+}
+
+.apod-links-mobile {
+  display: flex;
+  justify-content: space-between;
+  font-size: 4rem;
+  margin-top: 2rem;
+}
+
+.apod-links {
+  display:none;
+}
+
+.apod-img {
+  width:auto;
+  margin-top:2.5rem;
+}
+
+.apod-footer {
+  display:none;
+}
+
+.apod-footer-mobile {
+  display:flex;
+}
+
+.icon__search {
+  top:43rem;
+}
+
+.icon__heart {
+  top:43rem;  
+}
+
+label.apod-remove-fav {
+  right: 1.5rem;
+  top: 3.5rem;
+}
+
+}
