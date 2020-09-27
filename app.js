@@ -247,6 +247,8 @@ $(".container").on("click", ".apod-link-4", function (e) {
   if(publicFavourites.length != 0) {
     $(".apod-placeholder").remove();
   }
+ 
+ 
 });
 
 //GO HOME FROM FAVOURITES TAB
@@ -276,12 +278,12 @@ function fetchCall(url) {
   $(".container").append(
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
+
   //some funcs async some funcs reg, some arrow some reg
-  //mobile responsive
 //video media queries
-//zoom media queries - should be done
 //datepicker media queries
-//favourites section
+//check over comments 
+
   fetch(url)
     .then((response) => response.json())
     .then((data) => {

@@ -708,11 +708,21 @@ select option {
   .apod-placeholder {
     margin-top:15rem;
   }
+
+  .icon__search__fav {
+    top:28.3rem;
+  }
 }
 
 @media only screen and (max-width:992px) {
   .apod-logo {
     width:70%;
+  }
+}
+
+@media only screen and (max-width:882px) {
+  .apod-logo-fav {
+    max-width:100%;
   }
 }
 
@@ -749,4 +759,26 @@ select option {
     margin-top: 0;
     font-size: 3rem;
   }
+}
+
+@media only screen and (max-width:400px) {
+ .container {
+   padding:0;
+ }
+ .apod-left-side {
+   padding: 0 3rem;
+ }
+
+ .apod-right-side {
+   padding: 0 3rem;
+ }
+
+ .apod-footer-mobile {
+   padding: 0 3rem;
+   margin-top:2rem;
+ }
+
+ .nasa-fav-grid-item {
+   margin:0;
+ }
 }
