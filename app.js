@@ -109,50 +109,50 @@ function favouriteCall(favObject) {
   removeFavImage();
 }
 
-//zooms image in 
+//zooms image in
 function zoomImage(selector) {
   $(selector).on("click", function (e) {
     e.preventDefault();
-    let loadedImg = $(this).siblings(".apod-img").attr('src');
+    let loadedImg = $(this).siblings(".apod-img").attr("src");
     $(".modal, .apod-img-expanded").css("display", "flex");
     $(".apod-img-expanded").html(
       `<img src=${loadedImg} class='apod-expanded-src'>`
     );
     $(".apod-expanded-src").css("display", "flex");
   });
-};
+}
 
-//removes fav image from dom 
+//removes fav image from dom
 function removeFavImage() {
-  $(".apod-remove-fav").on("click", function(e) {
+  $(".apod-remove-fav").on("click", function (e) {
     e.preventDefault();
     let favURL = $(this).siblings(".apod-img");
-    loopAndUpdate(publicFavourites,favURL);
-   $(this).parent().remove();
+    loopAndUpdate(publicFavourites, favURL);
+    $(this).parent().remove();
   });
 }
 
 //loops publicFavourite array of objects, if the current 'liked' photo already exists in the publicFavourite, remove it and add this newer like.
 function loopAndUpdate(arrayOfObj, selly) {
-  let testFavUrlExists = $(selly).attr('src');
+  let testFavUrlExists = $(selly).attr("src");
   arrayOfObj.forEach((apod, i) => {
-   if(apod.url === testFavUrlExists){
-     arrayOfObj.splice(i,1);
-   }
+    if (apod.url === testFavUrlExists) {
+      arrayOfObj.splice(i, 1);
+    }
   });
 }
 
-//check if already in the publicFavourites array of objects, if so, keep heart set to red as already liked for user. 
+//check if already in the publicFavourites array of objects, if so, keep heart set to red as already liked for user.
 function checkIfLiked(passObje) {
-  let testFavUrlExists = $(".apod-img").attr('src');
+  let testFavUrlExists = $(".apod-img").attr("src");
   passObje.forEach((apod, i) => {
-   if(apod.url === testFavUrlExists){
-     $(".icon__heart").css("color","rgb(247, 139, 166)");
-   }
+    if (apod.url === testFavUrlExists) {
+      $(".icon__heart").css("color", "rgb(247, 139, 166)");
+    }
   });
 }
 
-//watches changes by the user on the dates inputted to dynamically generate the correct days ie february per year, or that 2020 is only up to a certain month. 
+//watches changes by the user on the dates inputted to dynamically generate the correct days ie february per year, or that 2020 is only up to a certain month.
 function watchDates() {
   //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
   $(".apod-month, .apod-year-select").change(function (e) {
@@ -244,11 +244,9 @@ $(".container").on("click", ".apod-link-4", function (e) {
   e.preventDefault();
   resetTemplate();
   favouriteCall(publicFavourites);
-  if(publicFavourites.length != 0) {
+  if (publicFavourites.length != 0) {
     $(".apod-placeholder").remove();
   }
- 
- 
 });
 
 //GO HOME FROM FAVOURITES TAB
@@ -279,9 +277,6 @@ function fetchCall(url) {
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
 
- 
-
-//check over comments 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -295,13 +290,12 @@ function fetchCall(url) {
         service_version,
         ...rest
       } = data;
-     
+
       let explanationSplit = transformString(explanation);
 
       let source = $("#nasa-app-template").html();
       let template = Handlebars.compile(source);
 
-    
       let context = {
         apodTitle: title,
         apodDate: date,
@@ -313,7 +307,7 @@ function fetchCall(url) {
         apodCopyright: copyright,
         apodVersion: service_version,
       };
-      
+
       if (media_type === "video") {
         delete context.apodURL;
         context.apodVid = url;
@@ -337,17 +331,10 @@ function fetchCall(url) {
       //HEART ICON
       $(".icon__heart").one("click", function (e) {
         e.preventDefault();
-        $(".icon__heart").css('color', '#f78ba6');
-        loopAndUpdate(publicFavourites, ".apod-img"); //splice, then add again below 
+        $(".icon__heart").css("color", "#f78ba6");
+        loopAndUpdate(publicFavourites, ".apod-img"); //splice, then add again below
         publicFavourites.unshift(data); //to beginning of array
         publicFavourites[0].favouritedPic = true;
-     
       });
-
-      
-});
-    
+    });
 }
-
-
-

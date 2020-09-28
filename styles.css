@@ -702,34 +702,34 @@ select option {
   }
 
   .apod-logo-fav {
-    margin:auto;
-    display:flex;
-    max-width:60%;
+    margin: auto;
+    display: flex;
+    max-width: 60%;
   }
 
   .apod-placeholder {
-    margin-top:15rem;
+    margin-top: 15rem;
   }
 
   .icon__search__fav {
-    top:28.3rem;
+    top: 28.3rem;
   }
 
   iframe {
-    width:100%;
-    padding-top:2rem;
+    width: 100%;
+    padding-top: 2rem;
   }
 }
 
-@media only screen and (max-width:992px) {
+@media only screen and (max-width: 992px) {
   .apod-logo {
-    width:70%;
+    width: 70%;
   }
 }
 
-@media only screen and (max-width:882px) {
+@media only screen and (max-width: 882px) {
   .apod-logo-fav {
-    max-width:100%;
+    max-width: 100%;
   }
 }
 
@@ -745,11 +745,11 @@ select option {
   }
 }
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
   .dates-container-border {
-    display:flex;
-    flex-direction:column;
-    padding:3rem;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
   }
   .apod-submit-date {
     align-self: center;
@@ -760,17 +760,18 @@ select option {
   }
 
   .dates-container-border::after {
-    display:none;
+    display: none;
   }
 
-  .apod-day-select, .apod-month {
-    margin-bottom:3rem !important;
+  .apod-day-select,
+  .apod-month {
+    margin-bottom: 3rem !important;
   }
 }
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width: 600px) {
   .apod-links-mobile {
-    font-size:3rem;
+    font-size: 3rem;
   }
 }
 
@@ -783,37 +784,37 @@ select option {
 @media only screen and (max-width: 417px) {
   .container {
     padding: 0 3rem;
-  } 
+  }
   .apod-links-mobile {
     margin-top: 0;
     font-size: 3rem;
   }
   .apod-date-form select {
-    font-size:2.5rem;
+    font-size: 2.5rem;
   }
   .apod-x {
-    right:-1rem;
+    right: -1rem;
   }
 }
 
-@media only screen and (max-width:400px) {
- .container {
-   padding:0;
- }
- .apod-left-side {
-   padding: 0 3rem;
- }
+@media only screen and (max-width: 400px) {
+  .container {
+    padding: 0;
+  }
+  .apod-left-side {
+    padding: 0 3rem;
+  }
 
- .apod-right-side {
-   padding: 0 3rem;
- }
+  .apod-right-side {
+    padding: 0 3rem;
+  }
 
- .apod-footer-mobile {
-   padding: 0 3rem;
-   margin-top:2rem;
- }
+  .apod-footer-mobile {
+    padding: 0 3rem;
+    margin-top: 2rem;
+  }
 
- .nasa-fav-grid-item {
-   margin:0;
- }
+  .nasa-fav-grid-item {
+    margin: 0;
+  }
 }
