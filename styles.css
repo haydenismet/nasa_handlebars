@@ -596,6 +596,8 @@ select option {
   display: flex;
   align-items: center;
   align-content: center;
+  width: 90vw;
+  object-fit: contain;
 }
 
 .apod-img-expanded {
@@ -712,6 +714,11 @@ select option {
   .icon__search__fav {
     top:28.3rem;
   }
+
+  iframe {
+    width:100%;
+    padding-top:2rem;
+  }
 }
 
 @media only screen and (max-width:992px) {
@@ -776,11 +783,16 @@ select option {
 @media only screen and (max-width: 417px) {
   .container {
     padding: 0 3rem;
-  }
-
+  } 
   .apod-links-mobile {
     margin-top: 0;
     font-size: 3rem;
+  }
+  .apod-date-form select {
+    font-size:2.5rem;
+  }
+  .apod-x {
+    right:-1rem;
   }
 }
 

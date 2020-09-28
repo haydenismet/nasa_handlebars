@@ -280,10 +280,8 @@ function fetchCall(url) {
   );
 
  
-//video media queries
-//datepicker media queries
+
 //check over comments 
-//image zoom mobile for favourites issue 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
