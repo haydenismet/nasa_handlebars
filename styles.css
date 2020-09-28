@@ -738,6 +738,29 @@ select option {
   }
 }
 
+@media only screen and (max-width:767px) {
+  .dates-container-border {
+    display:flex;
+    flex-direction:column;
+    padding:3rem;
+  }
+  .apod-submit-date {
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin: 3rem auto;
+  }
+
+  .dates-container-border::after {
+    display:none;
+  }
+
+  .apod-day-select, .apod-month {
+    margin-bottom:3rem !important;
+  }
+}
+
 @media only screen and (max-width:600px) {
   .apod-links-mobile {
     font-size:3rem;
