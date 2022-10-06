@@ -1,11 +1,10 @@
 ////////////////* GLOBAL VARIABLES *////////////
 
 var publicFavourites = [];
+var yearArray = [];
 const dateRef = new Date();
-const dateYear = dateRef.getFullYear();
 const dateDay = dateRef.getDate();
 const dateMonth = dateRef.getMonth() + 1;
-const yearArray = [2015, 2016, 2017, 2018, 2019, 2020];
 const newestYear = yearArray.length - 1; //grab most current year in the array
 const monthsOf = [
   "January",
@@ -43,7 +42,17 @@ function resetTemplate() {
   $("#nasa-template-whole").remove();
 }
 
-//SHOW MONTHS ARRAY FOR PICK-A-DATE
+//GENERATE YEARS ARRAY FOR PICK A DATE
+function generateYears() {
+  var max = new Date().getFullYear();
+  var min = max - 7;
+  for (var i = max; i >= min; i--) {
+    yearArray.push(i);
+  }
+  return yearArray;
+}
+
+//SHOW MONTHS ARRAY FOR PICK A DATE
 function loopMonths() {
   monthsOf.forEach((month, index) => {
     $(".apod-month").append(
@@ -51,6 +60,31 @@ function loopMonths() {
     );
   });
 }
+
+//SHOW DAYS ARRAY FOR PICK A DATE ON PAGELOAD
+function loopDays() {
+  const daysJanOnLoad = new Date("2022", "1", 0).getDate();
+  console.log(daysJanOnLoad);
+  for (let i = 1; i < daysJanOnLoad; i++) {
+    $(".apod-day-select").append(
+      `<option value='${i}' class='apod-day'>${i}</option>`
+    );
+  }
+}
+
+//SHOW YEARS ARRAY FOR PICK A DATE
+function loopYears() {
+  yearArray.forEach((year, index) => {
+    $(".apod-year-select").append(
+      `<option value='${year}' class='apod-year'>${year}</option>`
+    );
+  });
+}
+
+generateYears();
+loopMonths();
+loopYears();
+loopDays();
 
 //DATE FORMATTER HELPER -> HANDLEBARS.HELPER
 Handlebars.registerHelper("prettyDate", function (dateInput) {
@@ -321,12 +355,13 @@ function fetchCall(url) {
       zoomImage(".icon__search");
       checkIfLiked(publicFavourites);
       //CLOSE EXPAND
-      $(".modal, .apod-img-expanded, .apod-expanded-src").on("click", function (
-        e
-      ) {
-        e.preventDefault();
-        $(".modal, .apod-img-expanded, .apod-expanded-src").hide();
-      });
+      $(".modal, .apod-img-expanded, .apod-expanded-src").on(
+        "click",
+        function (e) {
+          e.preventDefault();
+          $(".modal, .apod-img-expanded, .apod-expanded-src").hide();
+        }
+      );
 
       //HEART ICON
       $(".icon__heart").one("click", function (e) {

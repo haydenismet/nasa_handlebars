@@ -1,6 +1,9 @@
 {
-    "name": "appName",
+    "name": "nasa-apod",
     "version": "0.1.0",
-    "devDependencies": {
+    "devDependencies": {},
+    "dependencies": {
+        "handlebars": "^4.7.7",
+        "live-server": "^1.2.2"
     }
-  }
+}

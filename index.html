@@ -1,91 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>APOD | NASA</title>
+    <meta name="description" content="Nasa WIP" />
+    <meta name="author" content="Nasa Apod Wip" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <script
+      src="https://kit.fontawesome.com/306368f56a.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>WIP | APOD | NASA</title>
-  <meta name="description" content="Nasa WIP" />
-  <meta name="author" content="Nasa Apod Wip" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-  <script src="https://kit.fontawesome.com/306368f56a.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-
-<body>
-  <div class="container">
-    <div class="apod-bg">
-      <div class="apod-datepicker">
-
-        <div class="apod-x">X</div>
-        <form class="apod-date-form">
-          <div class="dates-container-border">
-            <select name="apod-days" class="apod-day-select">
-              <option value='1' class='apod-day'>1</option>
-              <option value='2' class='apod-day'>2</option>
-              <option value='3' class='apod-day'>3</option>
-              <option value='4' class='apod-day'>4</option>
-              <option value='5' class='apod-day'>5</option>
-              <option value='6' class='apod-day'>6</option>
-              <option value='7' class='apod-day'>7</option>
-              <option value='8' class='apod-day'>8</option>
-              <option value='9' class='apod-day'>9</option>
-              <option value='10' class='apod-day'>10</option>
-              <option value='11' class='apod-day'>11</option>
-              <option value='12' class='apod-day'>12</option>
-              <option value='13' class='apod-day'>13</option>
-              <option value='14' class='apod-day'>14</option>
-              <option value='15' class='apod-day'>15</option>
-              <option value='16' class='apod-day'>16</option>
-              <option value='17' class='apod-day'>17</option>
-              <option value='18' class='apod-day'>18</option>
-              <option value='19' class='apod-day'>19</option>
-              <option value='20' class='apod-day'>20</option>
-              <option value='21' class='apod-day'>21</option>
-              <option value='22' class='apod-day'>22</option>
-              <option value='23' class='apod-day'>23</option>
-              <option value='24' class='apod-day'>24</option>
-              <option value='25' class='apod-day'>25</option>
-              <option value='26' class='apod-day'>26</option>
-              <option value='27' class='apod-day'>27</option>
-              <option value='29' class='apod-day'>28</option>
-              <option value='29' class='apod-day'>29</option>
-              <option value='30' class='apod-day'>30</option>
-              <option value='31' class='apod-day'>31</option>
-            </select>
-            <select name="apod-months" class="apod-month">
-              <option value='1' class='apod-year'>January</option>
-              <option value='2' class='apod-year'>February</option>
-              <option value='3' class='apod-year'>March</option>
-              <option value='4' class='apod-year'>April</option>
-              <option value='5' class='apod-year'>May</option>
-              <option value='6' class='apod-year'>June</option>
-              <option value='7' class='apod-year'>July</option>
-              <option value='8' class='apod-year'>August</option>
-              <option value='9' class='apod-year'>September</option>
-              <option value='10' class='apod-year'>October</option>
-              <option value='11' class='apod-year'>November</option>
-              <option value='12' class='apod-year'>December</option>
-            </select>
-            <select name="apod-years" class="apod-year-select">
-              <option value='2015' class='apod-year'>2015</option>
-              <option value='2016' class='apod-year'>2016</option>
-              <option value='2017' class='apod-year'>2017</option>
-              <option value='2018' class='apod-year'>2018</option>
-              <option value='2019' class='apod-year'>2019</option>
-              <option value='2020' class='apod-year'>2020</option>
-            </select>
-          </div>
-          <button class="apod-submit-date"> <i class="fas fa-search"></i></button>
-        </form>
-
+  <body>
+    <div class="container">
+      <div class="apod-bg">
+        <div class="apod-datepicker">
+          <div class="apod-x">X</div>
+          <form class="apod-date-form">
+            <div class="dates-container-border">
+              <select name="apod-days" class="apod-day-select"></select>
+              <select name="apod-months" class="apod-month"></select>
+              <select name="apod-years" class="apod-year-select"></select>
+            </div>
+            <button class="apod-submit-date">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
 
-    <script id="nasa-app-fav-template" type="text/x-handlebars-template">
+      <script id="nasa-app-fav-template" type="text/x-handlebars-template">
         <div id="nasa-template-whole">
           <div class="nasa-fav-logo">
-            <a href="index.html" class="apod-fav-logo-link"><img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo-fav" /></a>
+            <a href="index.html" class="apod-fav-logo-link"><img
+                src="nasa-apod-logo.jpg"
+                alt="logo"
+                class="apod-logo-fav"
+              /></a>
             <div class="apod-links apod-favourites-css">
               <div class="apod-link-1">
                 <i class="fas fa-space-shuttle"></i>
@@ -103,7 +63,15 @@
           </div>
 
           <div class="nasa-fav-grid">
-            <div class="apod-placeholder"> pictures you like will be saved <strong> here</strong> <br> <span class="apod-psst">just click  <i class="fas fa-heart" aria-hidden="true"></i> on a picture  </span> </div>
+            <div class="apod-placeholder">
+              pictures you like will be saved
+              <strong> here</strong>
+              <br />
+              <span class="apod-psst">just click
+                <i class="fas fa-heart" aria-hidden="true"></i>
+                on a picture
+              </span>
+            </div>
             {{#each this}}
               <div class="nasa-fav-grid-item">
                 <label class="apod-remove-fav">
@@ -125,34 +93,39 @@
                 </div>
               </div>
             {{/each}}
-            
+
           </div>
           <div class="apod-footer footer-favs">
-            <a href="https://github.com/joshua-tree-ctrl" target="_blank" class="apod-ext-links">  <i class="fab fa-github"></i></a>
-            <a href="https://codepen.io/flux_capacitor_" target="_blank" class="apod-ext-links">   <i class="fab fa-codepen"></i></a>
-        </div>
+            <a
+              href="https://github.com/joshua-tree-ctrl"
+              target="_blank"
+              class="apod-ext-links"
+            > <i class="fab fa-github"></i></a>
+          </div>
         </div>
       </script>
 
-    <script id="nasa-app-template" type="text/x-handlebars-template">
+      <script id="nasa-app-template" type="text/x-handlebars-template">
         <div id="nasa-template-whole">
           <div class="apod-left-side">
-          <!-- <a href="index.html">--> <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo" /> <!--</a>-->
+            <!-- <a href="index.html">-->
+            <img src="nasa-apod-logo.jpg" alt="logo" class="apod-logo" />
+            <!--</a>-->
 
-           <div class="apod-links-mobile">
-            <div class="apod-link-1">
-              <i class="fas fa-space-shuttle"></i>
+            <div class="apod-links-mobile">
+              <div class="apod-link-1">
+                <i class="fas fa-space-shuttle"></i>
+              </div>
+              <div class="apod-link-2">
+                <i class="far fa-calendar-alt"></i>
+              </div>
+              <div class="apod-link-3">
+                <i class="fas fa-random"></i>
+              </div>
+              <div class="apod-link-4">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+              </div>
             </div>
-            <div class="apod-link-2">
-              <i class="far fa-calendar-alt"></i>
-            </div>
-            <div class="apod-link-3">
-              <i class="fas fa-random"></i>
-            </div>
-            <div class="apod-link-4">
-              <i class="fas fa-heart" aria-hidden="true"></i>
-            </div>
-          </div>
 
             <div class="apod-content">
               <h1 id="apod-explanation-title">
@@ -160,29 +133,30 @@
               </h1>
               <div class="apod-tags">
                 {{#if apodCopyright}}
-                <div class="apod-pills">{{apodCopyright}}</div>
+                  <div class="apod-pills">{{apodCopyright}}</div>
                 {{/if}}
-              {{#if apodVersion}}
-              <div class="apod-pills">{{apodVersion}}</div>
-              {{/if}}
-              <div class="apod-pills">{{apodMediaType}}</div>
-            </div>
-            
+                {{#if apodVersion}}
+                  <div class="apod-pills">{{apodVersion}}</div>
+                {{/if}}
+                <div class="apod-pills">{{apodMediaType}}</div>
+              </div>
+
               <div id="apod-desc-opener">
                 {{apodDescOpener}}
-              
+
               </div>
               <div id="apod-desc-remaining">
                 {{apodDescRemaining}}
               </div>
             </div>
-           
-              <div class="apod-footer">
-                <a href="https://github.com/joshua-tree-ctrl" target="_blank" class="apod-ext-links">  <i class="fab fa-github"></i></a>
-                <a href="https://codepen.io/flux_capacitor_" target="_blank" class="apod-ext-links">   <i class="fab fa-codepen"></i></a>
-             
+
+            <div class="apod-footer">
+              <a
+                href="https://github.com/joshua-tree-ctrl"
+                target="_blank"
+                class="apod-ext-links"
+              > <i class="fab fa-github"></i></a>
             </div>
-         
           </div>
 
           <div class="apod-right-side">
@@ -203,21 +177,19 @@
 
             <div class="apod-title-date-img-content">
               {{#if apodVid}}
-                <iframe
-                  src="{{apodVid}}&autoplay=1&mute=1"
-                >
+                <iframe src="{{apodVid}}&autoplay=1&mute=1">
                 </iframe>
-                {{else}}
-              <img class="apod-img" src="{{apodURL}}" />
+              {{else}}
+                <img class="apod-img" src="{{apodURL}}" />
               {{/if}}
               {{#if apodURL}}
-              <label class="icon__heart">
-                <input type="checkbox" />
-                <i class="fas fa-heart"></i>
-              </label>
-              <label class="icon__search">
-                <i class="fas fa-search-plus"></i>
-              </label>
+                <label class="icon__heart">
+                  <input type="checkbox" />
+                  <i class="fas fa-heart"></i>
+                </label>
+                <label class="icon__search">
+                  <i class="fas fa-search-plus"></i>
+                </label>
               {{/if}}
               <h1 id="apod-title">
                 {{apodTitle}}
@@ -228,20 +200,21 @@
             </div>
           </div>
           <div class="apod-footer-mobile">
-            <a href="https://github.com/joshua-tree-ctrl" target="_blank" class="apod-ext-links">  <i class="fab fa-github"></i></a>
-            <a href="https://codepen.io/flux_capacitor_" target="_blank" class="apod-ext-links">   <i class="fab fa-codepen"></i></a>
-         
-        </div>
+            <a
+              href="https://github.com/joshua-tree-ctrl"
+              target="_blank"
+              class="apod-ext-links"
+            > <i class="fab fa-github"></i></a>
+          </div>
         </div>
       </script>
-  </div>
+    </div>
 
-  <div class="modal">
-    <div class="apod-img-expanded"></div>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-  <script src="app.js"></script>
-</body>
-
+    <div class="modal">
+      <div class="apod-img-expanded"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
