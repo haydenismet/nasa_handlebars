@@ -272,7 +272,7 @@ iframe {
   display: flex;
   color: #777777;
   font-size: 2rem;
-  letter-spacing: -0.1rem;
+  letter-spacing: -0.06rem;
 }
 
 .apod-footer {
@@ -325,6 +325,7 @@ iframe {
   margin-right: 1rem;
   opacity: 0.5;
   margin-bottom: 1rem;
+  text-transform: capitalize;
 }
 
 .apod-img {
@@ -436,7 +437,7 @@ label.apod-remove-fav:hover {
 .apod-link-4:hover {
   opacity: 1;
   position: relative;
-  font-family: monospace;
+  font-family: 'Dosis', sans-serif;
 }
 
 .apod-link-1:hover::after {
@@ -503,6 +504,8 @@ label.apod-remove-fav:hover {
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.6rem;
   position: relative;
+  display:flex;
+  align-items: center;
 }
 
 .apod-date-form select {
@@ -511,14 +514,17 @@ label.apod-remove-fav:hover {
   padding: 0rem 2rem;
   font-size: 3.5rem;
   font-weight: 600;
-  font-family: monospace;
+  font-family: 'Dosis', sans-serif;
   border-style: none;
-  color: white;
+  color: rgb(19, 19, 19);
   background: none;
   text-transform: uppercase;
   font-weight: 900;
   letter-spacing: 0.3rem;
-  /* border-bottom: 0.5rem solid white;*/
+}
+
+.apod-date-form select:hover {
+  cursor:pointer;
 }
 
 select option {
@@ -537,8 +543,8 @@ select option {
   margin-left: 2rem;
   border-style: none;
   height: 7.5rem;
-  background: none;
-  color: white;
+  background: white;
+  color: rgb(19, 19, 19);
   border: 0.2rem solid white;
   cursor: pointer;
 }
@@ -548,22 +554,14 @@ select option {
   display: inline-block;
   padding: 1rem;
   position: relative;
+  border-radius:2.5rem;
+  background-color:white;
 }
 
-.dates-container-border:after {
-  content: " ";
-  z-index: 1;
-  top: 2.5rem;
-  right: -2.6rem;
-  width: 2.5rem;
-  height: 0.2rem;
-  background-color: white;
-  display: inline-block;
-  position: absolute;
-}
+
 
 .apod-x {
-  font-size: 1.6rem;
+  font-size: 2.6rem;
   color: white;
   font-weight: 900;
   align-self: flex-end;
@@ -571,8 +569,8 @@ select option {
   margin-bottom: 2rem;
   cursor: pointer;
   position: absolute;
-  right: -4rem;
-  top: -4rem;
+  right: -5rem;
+  top: -5rem;
 }
 
 /* The Modal (background) */

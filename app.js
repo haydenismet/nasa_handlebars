@@ -2,10 +2,12 @@
 
 var publicFavourites = [];
 var yearArray = [];
+
 const dateRef = new Date();
 const dateDay = dateRef.getDate();
 const dateMonth = dateRef.getMonth() + 1;
-const newestYear = yearArray.length - 1; //grab most current year in the array
+const newestYear = yearArray.length - 1;
+
 const monthsOf = [
   "January",
   "February",
@@ -64,7 +66,6 @@ function loopMonths() {
 //SHOW DAYS ARRAY FOR PICK A DATE ON PAGELOAD
 function loopDays() {
   const daysJanOnLoad = new Date("2022", "1", 0).getDate();
-  console.log(daysJanOnLoad);
   for (let i = 1; i < daysJanOnLoad; i++) {
     $(".apod-day-select").append(
       `<option value='${i}' class='apod-day'>${i}</option>`
@@ -74,19 +75,20 @@ function loopDays() {
 
 //SHOW YEARS ARRAY FOR PICK A DATE
 function loopYears() {
-  yearArray.forEach((year, index) => {
+  yearArray.forEach((year, j) => {
     $(".apod-year-select").append(
       `<option value='${year}' class='apod-year'>${year}</option>`
     );
   });
 }
 
+// Run funcs
 generateYears();
 loopMonths();
 loopYears();
 loopDays();
 
-//DATE FORMATTER HELPER -> HANDLEBARS.HELPER
+//DATE FORMATTER HELPER -> HANDLEBARS.HELPER -> to display the date of photo taken in prettier formatting
 Handlebars.registerHelper("prettyDate", function (dateInput) {
   let newDate = new Date(dateInput);
   let year = newDate.getFullYear();
@@ -186,10 +188,10 @@ function checkIfLiked(passObje) {
   });
 }
 
-//watches changes by the user on the dates inputted to dynamically generate the correct days ie february per year, or that 2020 is only up to a certain month.
+//watches changes by the user on the dates inputted to dynamically generate the correct days ie february per year, or that newest year is only up to a certain month.
 function watchDates() {
   //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
-  $(".apod-month, .apod-year-select").change(function (e) {
+  $(".apod-month, .apod-year-select").on("change", function (e) {
     let dayInput = $(".apod-day-select").val(); //grab inputted day onChange
     $(".apod-day-select").children().remove(); //remove days to re-render days
     e.preventDefault();
@@ -198,7 +200,7 @@ function watchDates() {
     let yearInput = $(".apod-year-select").val(); // grab inputted year
     let days = new Date(yearInput, monthInput, 0).getDate(); // calculate days in this month and year, ie feb 2015 28, feb 2016 29.
 
-    if (yearArray[newestYear] == yearInput) {
+    if (yearArray[0] == yearInput) {
       $(".apod-month").children().remove(); //remove months to rerender months. if selected year is the newest, only show up to current month.
       let d = 0;
       while (monthsOf[d] !== monthsOf[dateMonth]) {
@@ -212,8 +214,8 @@ function watchDates() {
       loopMonths();
     }
 
-    if (yearArray[newestYear] == yearInput && monthInput == dateMonth) {
-      // if year is newest(2020) and userchosen year is 2020, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
+    if (yearArray[0] == yearInput && monthInput == dateMonth) {
+      // if year is newest and userchosen year is newest, AND theyve picked the current month, then only use the counter up to the present day, i.e August 2020 = TRUE, TODAY date is 16 august, only render days up to 16th else, continue appending from code above to calculate days of month in chosen month/year.
       while (i <= dateDay) {
         $(".apod-day-select").append(
           `<option value='${i}' class='apod-day'>${i}</option>`
@@ -242,6 +244,28 @@ $(".container").on("click", ".apod-link-2", function (e) {
   e.preventDefault();
   $(".apod-bg").css("display", "flex");
   watchDates();
+});
+
+// CLICK PICK DATE - RENDER YEAR - MONTH - DAY to TODAYS ONPAGELOAD
+$(".container").on("click", ".apod-link-2", function (e) {
+  var previousMonthSelected = $(".apod-month").val();
+  e.preventDefault();
+  if (
+    $(".apod-year-select").val() == yearArray[0] &&
+    previousMonthSelected > dateMonth
+  ) {
+    $(".apod-month").children().remove();
+
+    let currentMonths = 0;
+    while (monthsOf[currentMonths] !== monthsOf[dateMonth]) {
+      currentMonths++;
+      $(".apod-month").append(
+        `<option value='${currentMonths}' class='apod-year'>${
+          monthsOf[currentMonths - 1]
+        }</option>`
+      );
+    }
+  }
 });
 
 //TODAYS APOD LINK
