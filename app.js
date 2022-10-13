@@ -188,6 +188,14 @@ function checkIfLiked(passObje) {
   });
 }
 
+function disableButton() {
+  if ($(".apod-month").val() === null || $(".apod-day-select").val() === null) {
+    $("button.apod-submit-date").attr("disabled", true);
+  } else {
+    $("button.apod-submit-date").attr("disabled", false);
+  }
+}
+
 //watches changes by the user on the dates inputted to dynamically generate the correct days ie february per year, or that newest year is only up to a certain month.
 function watchDates() {
   //For days to be updated by year picked - will store last chosen date for next month/year picked unless doesnt exist ie 31st in February
@@ -195,6 +203,7 @@ function watchDates() {
     let dayInput = $(".apod-day-select").val(); //grab inputted day onChange
     $(".apod-day-select").children().remove(); //remove days to re-render days
     e.preventDefault();
+
     let i = 1; //counter ref
     let monthInput = $(".apod-month").val(); // grab inputted month
     let yearInput = $(".apod-year-select").val(); // grab inputted year
@@ -230,7 +239,6 @@ function watchDates() {
         i++;
       }
     }
-
     //retain last picked day (unless doesnt exist then previous code removes it);
     $(".apod-day-select").val(dayInput);
     $(".apod-month").val(monthInput);
@@ -249,10 +257,16 @@ $(".container").on("click", ".apod-link-2", function (e) {
 // CLICK PICK DATE - RENDER YEAR - MONTH - DAY to TODAYS ONPAGELOAD
 $(".container").on("click", ".apod-link-2", function (e) {
   var previousMonthSelected = $(".apod-month").val();
+  console.log(
+    $(".apod-year-select").val(),
+    yearArray[0],
+    previousMonthSelected,
+    dateMonth
+  );
   e.preventDefault();
   if (
     $(".apod-year-select").val() == yearArray[0] &&
-    previousMonthSelected > dateMonth
+    previousMonthSelected < dateMonth
   ) {
     $(".apod-month").children().remove();
 
@@ -267,6 +281,16 @@ $(".container").on("click", ".apod-link-2", function (e) {
     }
   }
 });
+
+//DISABLE + ENABLE
+$(".apod-month, .apod-year-select, .apod-day-select").on(
+  "change",
+  async function (e) {
+    e.preventDefault();
+    await watchDates();
+    await disableButton();
+  }
+);
 
 //TODAYS APOD LINK
 $(".container").on("click", ".apod-link-1", function (e) {

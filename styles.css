@@ -573,6 +573,12 @@ select option {
   top: -5rem;
 }
 
+button.apod-submit-date:disabled {
+  color: white;
+  background-color: #424242;
+  border: 2px solid #424242;
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -754,7 +760,7 @@ select option {
     justify-content: center;
     display: flex;
     align-items: center;
-    margin: 3rem auto;
+    margin: 3rem 0 0 3rem;
   }
 
   .dates-container-border::after {
@@ -770,6 +776,31 @@ select option {
 @media only screen and (max-width: 600px) {
   .apod-links-mobile {
     font-size: 3rem;
+  }
+}
+
+@media only screen and (max-width: 545px) {
+  .dates-container-border {
+    padding:0.5rem;
+  }
+
+  .apod-submit-date {
+    margin:0 0 0 1rem;
+    padding: 1rem 1.5rem;
+    height:4.5rem;
+    font-size:2.5rem;
+  }
+
+  .apod-date-form select {
+    margin:0;
+    padding:0;
+  }
+  .apod-day-select, .apod-month {
+    margin-bottom:1rem !important;
+  }
+
+  .apod-x {
+    right: 2rem;
   }
 }
 
