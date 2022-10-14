@@ -139,6 +139,7 @@ async function scrapeDatesSubmit() {
 function favouriteCall(favObject) {
   let source = $("#nasa-app-fav-template").html();
   let template = Handlebars.compile(source);
+  // around here we want to take the stringified localstorage and then turn it back into an object - we call favouriteCall(publicFavourites) further down below so want to sort of redump it back into publicFavourites as json
   let html = template(favObject);
   $(".container").append(html);
   zoomImage(".icon__search__fav");
@@ -418,6 +419,7 @@ function fetchCall(url) {
         loopAndUpdate(publicFavourites, ".apod-img"); //splice, then add again below
         publicFavourites.unshift(data); //to beginning of array
         publicFavourites[0].favouritedPic = true;
+        localStorage.setItem("favourited", JSON.stringify(publicFavourites));
       });
     });
 }
