@@ -258,12 +258,7 @@ $(".container").on("click", ".apod-link-2", function (e) {
 // CLICK PICK DATE - RENDER YEAR - MONTH - DAY to TODAYS ONPAGELOAD
 $(".container").on("click", ".apod-link-2", function (e) {
   var previousMonthSelected = $(".apod-month").val();
-  console.log(
-    $(".apod-year-select").val(),
-    yearArray[0],
-    previousMonthSelected,
-    dateMonth
-  );
+
   e.preventDefault();
   if (
     $(".apod-year-select").val() == yearArray[0] &&
