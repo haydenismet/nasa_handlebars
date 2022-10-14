@@ -3,6 +3,14 @@
 var publicFavourites = [];
 var yearArray = [];
 
+//to check and re-set localStorage into publicFavourites if present
+function checkLocalStorage() {
+  if (localStorage.getItem("favourited") !== null) {
+    publicFavourites = JSON.parse(localStorage.getItem("favourited"));
+  }
+}
+checkLocalStorage();
+
 const dateRef = new Date();
 const dateDay = dateRef.getDate();
 const dateMonth = dateRef.getMonth() + 1;
@@ -166,16 +174,22 @@ function removeFavImage() {
     let favURL = $(this).siblings(".apod-img");
     loopAndUpdate(publicFavourites, favURL);
     $(this).parent().remove();
+    if (publicFavourites.length == 0) {
+      $(".apod-placeholder").show();
+    }
   });
 }
 
 //loops publicFavourite array of objects, if the current 'liked' photo already exists in the publicFavourite, remove it and add this newer like.
 function loopAndUpdate(arrayOfObj, selly) {
   let testFavUrlExists = $(selly).attr("src");
+  let localStorageFavourited = JSON.parse(localStorage.getItem("favourited"));
   arrayOfObj.forEach((apod, i) => {
     if (apod.url === testFavUrlExists) {
       arrayOfObj.splice(i, 1);
+      localStorageFavourited.splice(i, 1);
     }
+    localStorage.setItem("favourited", JSON.stringify(localStorageFavourited));
   });
 }
 
@@ -323,7 +337,7 @@ $(".container").on("click", ".apod-link-4", function (e) {
   resetTemplate();
   favouriteCall(publicFavourites);
   if (publicFavourites.length != 0) {
-    $(".apod-placeholder").remove();
+    $(".apod-placeholder").hide();
   }
 });
 
