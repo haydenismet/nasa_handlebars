@@ -16,12 +16,47 @@ body {
   display: flex;
   align-items: center;
   min-height: 100vh;
+  text-decoration: none;
 }
 
 .apod-placeholder {
   align-self: center;
   color: #777777;
 }
+
+.nasa-fav-grid > div > a {
+  text-decoration: none;
+}
+
+.apod-go-back {
+  margin: 0 auto;
+  padding: 1rem 0;
+  text-align: center;
+  display: block;
+  margin-top: 2rem;
+  outline: 0;
+  border: 0;
+  background-color: #828282;
+  color: white;
+  text-decoration: none;
+  cursor:pointer;
+  letter-spacing: 0.05rem;
+  font-family: "Nunito Sans", sans-serif;
+  width:100%;
+  border-radius:10rem;
+}
+
+.apod-go-back strong {
+  color:white !important;
+  opacity: 1 !important;
+}
+
+.apod-go-back:hover {
+  background-color: #626262;
+}
+
+
+
 
 .apod-placeholder strong {
   color: black;
