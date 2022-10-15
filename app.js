@@ -426,7 +426,7 @@ function fetchCall(url) {
       $(".icon__heart").one("click", function (e) {
         e.preventDefault();
         $(".icon__heart").css("color", "#f78ba6");
-        loopAndUpdate(publicFavourites, ".apod-img", data); //splice, then add again below
+        loopAndUpdate(publicFavourites, ".apod-img"); //splice, then add again below
         publicFavourites.unshift(data); //to beginning of array
         publicFavourites[0].favouritedPic = true;
         localStorage.setItem("favourited", JSON.stringify(publicFavourites));
