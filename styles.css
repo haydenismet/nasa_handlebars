@@ -683,6 +683,10 @@ button.apod-submit-date:disabled {
     background-color: white;
   }
 
+  .apod-fav-logo-link {
+    flex: 0;
+  }
+
   .container {
     box-shadow: none;
     margin: 4rem auto;
