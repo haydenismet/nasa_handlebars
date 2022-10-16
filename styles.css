@@ -89,7 +89,7 @@ body {
   width: 120rem;
   background-color: white;
   margin: 4rem auto;
-  padding: 0 5rem;
+  padding: 3rem 5rem;
   display: flex;
   border-radius: 2rem;
   min-height: 70rem;
@@ -710,10 +710,9 @@ button.apod-submit-date:disabled {
     margin-top: 2rem;
   }
 
-  .apod-links {
-    display: none;
+  .apod-left-side ~ .apod-right-side .apod-links {
+  display:none;
   }
-
   .apod-img {
     width: 100%;
     margin-top: 2.5rem;

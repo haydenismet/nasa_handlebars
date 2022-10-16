@@ -346,7 +346,7 @@ $(".container").on("click", ".apod-link-4", function (e) {
 $(".container").on("click", ".apod-logo-fav", function (e) {
   e.preventDefault();
   let fetchTodayURL =
-    "https://api.nasa.gov/planetary/apod?api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD";
+    "https://api.nasa.gov/planetary/apod?date=2020-06-12&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD";
   resetTemplate();
   fetchCall(fetchTodayURL);
 });
@@ -409,27 +409,32 @@ function fetchCall(url) {
       $(".apod-spinner").remove();
       let html = template(context);
       $(".container").append(html);
-
-      //EXPAND IMAGE
-      zoomImage(".icon__search");
-      checkIfLiked(publicFavourites);
-      //CLOSE EXPAND
-      $(".modal, .apod-img-expanded, .apod-expanded-src").on(
-        "click",
-        function (e) {
-          e.preventDefault();
-          $(".modal, .apod-img-expanded, .apod-expanded-src").hide();
-        }
-      );
-
-      //HEART ICON
-      $(".icon__heart").one("click", function (e) {
-        e.preventDefault();
-        $(".icon__heart").css("color", "#f78ba6");
-        loopAndUpdate(publicFavourites, ".apod-img"); //splice, then add again below
-        publicFavourites.unshift(data); //to beginning of array
-        publicFavourites[0].favouritedPic = true;
-        localStorage.setItem("favourited", JSON.stringify(publicFavourites));
-      });
+      additionalFeatures(data);
     });
+}
+
+function additionalFeatures(fetchData) {
+  //EXPAND IMAGE
+  zoomImage(".icon__search");
+  checkIfLiked(publicFavourites);
+  //CLOSE EXPAND
+  $(".modal, .apod-img-expanded, .apod-expanded-src").on("click", function (e) {
+    e.preventDefault();
+    $(".modal, .apod-img-expanded, .apod-expanded-src").hide();
+  });
+
+  //HEART ICON
+  $(".icon__heart").on("click", function (e) {
+    e.preventDefault();
+    //splice, then add again below
+    if ($(".icon__heart").css("color") === "rgb(247, 139, 166)") {
+      $(".icon__heart").css("color", "#808080");
+      loopAndUpdate(publicFavourites, ".apod-img");
+    } else {
+      $(".icon__heart").css("color", "#f78ba6");
+      publicFavourites.unshift(fetchData); //to beginning of array
+      publicFavourites[0].favouritedPic = true;
+    }
+    localStorage.setItem("favourited", JSON.stringify(publicFavourites));
+  });
 }
