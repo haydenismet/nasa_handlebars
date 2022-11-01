@@ -1,5 +1,4 @@
-////////////////* GLOBAL VARIABLES *////////////
-
+//global
 var publicFavourites = [];
 var yearArray = [];
 
@@ -9,8 +8,10 @@ function checkLocalStorage() {
     publicFavourites = JSON.parse(localStorage.getItem("favourited"));
   }
 }
+// run localstorage check
 checkLocalStorage();
 
+//dates
 const dateRef = new Date();
 const dateDay = dateRef.getDate();
 const dateMonth = dateRef.getMonth() + 1;
@@ -40,29 +41,28 @@ const daysOf = [
   "Saturday",
 ];
 
-///////////////////* INIT & GLOBALS *///////////////////
-
-//PAGE LOAD - FIRST VISIT
+//init//
+//page load - first visit
 fetchCall(
   "https://api.nasa.gov/planetary/apod?date=2020-06-12&api_key=G3IWAB5yFZXWzW56OA9GbVfqcGCgJqq1Z6f424eD"
 );
 
-// RESET TEMPLATE - USED DURING RERENDER //
+// reset template - used for rerender //
 function resetTemplate() {
   $("#nasa-template-whole").remove();
 }
 
-//GENERATE YEARS ARRAY FOR PICK A DATE
+//generate years array for date picker
 function generateYears() {
-  var max = new Date().getFullYear();
-  var min = max - 7;
-  for (var i = max; i >= min; i--) {
+  let max = new Date().getFullYear();
+  let min = max - 7;
+  for (let i = max; i >= min; i--) {
     yearArray.push(i);
   }
   return yearArray;
 }
 
-//SHOW MONTHS ARRAY FOR PICK A DATE
+//show months array in datepicker ui
 function loopMonths() {
   monthsOf.forEach((month, index) => {
     $(".apod-month").append(
@@ -71,7 +71,7 @@ function loopMonths() {
   });
 }
 
-//SHOW DAYS ARRAY FOR PICK A DATE ON PAGELOAD
+//show days array in datepicker ui on pageload
 function loopDays() {
   const daysJanOnLoad = new Date("2022", "1", 0).getDate();
   for (let i = 1; i < daysJanOnLoad; i++) {
@@ -81,7 +81,7 @@ function loopDays() {
   }
 }
 
-//SHOW YEARS ARRAY FOR PICK A DATE
+//show years array in datepicker ui
 function loopYears() {
   yearArray.forEach((year, j) => {
     $(".apod-year-select").append(
@@ -90,13 +90,13 @@ function loopYears() {
   });
 }
 
-// Run funcs
+// Run datepicker setup
 generateYears();
 loopMonths();
 loopYears();
 loopDays();
 
-//DATE FORMATTER HELPER -> HANDLEBARS.HELPER -> to display the date of photo taken in prettier formatting
+//handlebars helper -> to display the date of photo taken in prettier formatting under photo and title
 Handlebars.registerHelper("prettyDate", function (dateInput) {
   let newDate = new Date(dateInput);
   let year = newDate.getFullYear();
@@ -108,7 +108,7 @@ Handlebars.registerHelper("prettyDate", function (dateInput) {
   return `${daysWeek} ${day} ${monthFull}, ${year}`;
 });
 
-// TEXT REGEX TRANSFORM -> First paragraph separated
+// text regex transform -> First paragraph separated
 function transformString(stringy) {
   let regex = /^.*?[\.!\?](?:\s|$)/;
   let firstSentence = stringy.match(regex);
@@ -117,7 +117,7 @@ function transformString(stringy) {
   return sentenceSplits;
 }
 
-//RANDOMIZE DATE//
+//date randomizer
 async function randomizeDate() {
   let randomMonth = Math.floor(Math.random() * 11) + 1;
   let randomYearSelector = Math.floor(Math.random() * yearArray.length);
@@ -125,7 +125,7 @@ async function randomizeDate() {
   let daysInMonth = new Date(randomYear, randomMonth, 0).getDate();
   let randomDay = Math.floor(Math.random() * daysInMonth) + 1;
   let newRandomDate = new Date(randomYear, randomMonth, randomDay);
-  //IF FUTURE DATE
+  //if future date is randomized, run again
   if (newRandomDate > dateRef) {
     return randomizeDate();
   } else {
@@ -134,7 +134,7 @@ async function randomizeDate() {
   }
 }
 
-//SCRAPE USER INPUT DATES
+//scrape user input dates from datepicker ui
 async function scrapeDatesSubmit() {
   let dayInput = $(".apod-day-select").val();
   let monthInput = $(".apod-month").val();
@@ -143,11 +143,10 @@ async function scrapeDatesSubmit() {
   return chosenDate;
 }
 
-//RENDER FAVOURITES DATA (Like fetch but for favourite tab)
+//render favourited pictures -> think of fetch, but internal
 function favouriteCall(favObject) {
   let source = $("#nasa-app-fav-template").html();
   let template = Handlebars.compile(source);
-  // around here we want to take the stringified localstorage and then turn it back into an object - we call favouriteCall(publicFavourites) further down below so want to sort of redump it back into publicFavourites as json
   let html = template(favObject);
   $(".container").append(html);
   zoomImage(".icon__search__fav");
@@ -188,7 +187,6 @@ function loopAndUpdate(arrayOfObj, selly) {
     if (apod.url === testFavUrlExists) {
       arrayOfObj.splice(i, 1);
       localStorageFavourited.splice(i, 1);
-      //$(".icon__heart").css("color", "#808080");
     }
     localStorage.setItem("favourited", JSON.stringify(localStorageFavourited));
   });
@@ -204,6 +202,7 @@ function checkIfLiked(passObje) {
   });
 }
 
+//disable button in datepicker ui if invalid date selected (day/month/year will be reset to null for user to re-select)
 function disableButton() {
   if ($(".apod-month").val() === null || $(".apod-day-select").val() === null) {
     $("button.apod-submit-date").attr("disabled", true);
@@ -225,6 +224,7 @@ function watchDates() {
     let yearInput = $(".apod-year-select").val(); // grab inputted year
     let days = new Date(yearInput, monthInput, 0).getDate(); // calculate days in this month and year, ie feb 2015 28, feb 2016 29.
 
+    //if this year
     if (yearArray[0] == yearInput) {
       $(".apod-month").children().remove(); //remove months to rerender months. if selected year is the newest, only show up to current month.
       let d = 0;
@@ -261,19 +261,17 @@ function watchDates() {
   });
 }
 
-///////////////////* CLICK FUNCTIONS *///////////////////
-
-//CLICK PICK DATE LINK
+//click functions//
+//click pick date
 $(".container").on("click", ".apod-link-2", function (e) {
   e.preventDefault();
   $(".apod-bg").css("display", "flex");
   watchDates();
 });
 
-// CLICK PICK DATE - RENDER YEAR - MONTH - DAY to TODAYS ONPAGELOAD
+// click pick date - render year/month/day on pageload
 $(".container").on("click", ".apod-link-2", function (e) {
-  var previousMonthSelected = $(".apod-month").val();
-
+  let previousMonthSelected = $(".apod-month").val();
   e.preventDefault();
   if (
     $(".apod-year-select").val() == yearArray[0] &&
@@ -293,7 +291,7 @@ $(".container").on("click", ".apod-link-2", function (e) {
   }
 });
 
-//DISABLE + ENABLE
+//disable / enable functionality for datepicker ui
 $(".apod-month, .apod-year-select, .apod-day-select").on(
   "change",
   async function (e) {
@@ -303,7 +301,7 @@ $(".apod-month, .apod-year-select, .apod-day-select").on(
   }
 );
 
-//TODAYS APOD LINK
+//todays apod link
 $(".container").on("click", ".apod-link-1", function (e) {
   e.preventDefault();
   let fetchTodayURL =
@@ -312,7 +310,7 @@ $(".container").on("click", ".apod-link-1", function (e) {
   fetchCall(fetchTodayURL);
 });
 
-//RANDOMIZE DATE LINK CLICKED
+//randomize date link
 $(".container").on("click", ".apod-link-3", function (e) {
   e.preventDefault();
   resetTemplate();
@@ -332,7 +330,7 @@ function removeDatePicker() {
 }
 removeDatePicker();
 
-//FAVOURITES TAB LINK
+//favourites tab click
 $(".container").on("click", ".apod-link-4", function (e) {
   e.preventDefault();
   resetTemplate();
@@ -342,7 +340,7 @@ $(".container").on("click", ".apod-link-4", function (e) {
   }
 });
 
-//GO HOME FROM FAVOURITES TAB
+//go home, re-fetch original photo set by yours truly
 $(".container").on("click", ".apod-logo-fav", function (e) {
   e.preventDefault();
   let fetchTodayURL =
@@ -351,7 +349,7 @@ $(".container").on("click", ".apod-logo-fav", function (e) {
   fetchCall(fetchTodayURL);
 });
 
-//SUBMIT SELECTED DATE
+//submit selected date
 $(".apod-date-form").on("submit", function (e) {
   e.preventDefault();
   $(".apod-bg").css("display", "none");
@@ -378,7 +376,7 @@ function fetchCall(url) {
         $(".container").append(errorMsg);
         $(".container").on("click", ".nasa_search_again", function (e) {
           e.preventDefault();
-          location.reload();
+          location.href = "/index.html";
           $(".errorMsg").remove();
         });
         throw new Error("400 error");
@@ -427,16 +425,16 @@ function fetchCall(url) {
 }
 
 function additionalFeatures(fetchData) {
-  //EXPAND IMAGE
+  //expand image
   zoomImage(".icon__search");
   checkIfLiked(publicFavourites);
-  //CLOSE EXPAND
+  //close expand
   $(".modal, .apod-img-expanded, .apod-expanded-src").on("click", function (e) {
     e.preventDefault();
     $(".modal, .apod-img-expanded, .apod-expanded-src").hide();
   });
 
-  //HEART ICON
+  //favourite heart icon
   $(".icon__heart").on("click", function (e) {
     e.preventDefault();
     //splice, then add again below

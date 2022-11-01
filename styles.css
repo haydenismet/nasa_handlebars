@@ -707,7 +707,7 @@ button.apod-submit-date:disabled {
 }
 
 .nasa_search_again:hover {
-
+  background-color: #8b8b8b;
 }
 
 @media only screen and (max-width: 1200px) {
