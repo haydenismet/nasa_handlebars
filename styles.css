@@ -678,6 +678,38 @@ button.apod-submit-date:disabled {
   display: none;
 }
 
+.errorMsg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.errorSry {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #383838;
+  margin-bottom: 5px;
+}
+
+.nasa_search_again {
+  border: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 40px;
+  width: 100%;
+  background-color: #777777;
+  letter-spacing: .5px;
+  cursor:pointer;
+}
+
+.nasa_search_again:hover {
+
+}
+
 @media only screen and (max-width: 1200px) {
   body {
     background-color: white;

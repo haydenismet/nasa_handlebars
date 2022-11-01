@@ -369,9 +369,22 @@ function fetchCall(url) {
   $(".container").append(
     "<img src='785.gif' alt='loading' class='apod-spinner'>"
   );
-
+  let errorMsg =
+    "<div class='errorMsg'>  <div class='errorSry'>Sorry!</div> Looks like that request didn't work. <button class='nasa_search_again'> Search again </button> </div>";
   fetch(url)
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 400 || response.status === 404) {
+        $(".apod-spinner").remove();
+        $(".container").append(errorMsg);
+        $(".container").on("click", ".nasa_search_again", function (e) {
+          e.preventDefault();
+          location.reload();
+          $(".errorMsg").remove();
+        });
+        throw new Error("400 error");
+      }
+      return response.json();
+    })
     .then((data) => {
       let {
         date,
